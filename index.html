@@ -5,19 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rikesh Sharma</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="theme.css">
   <script defer src="script.js"></script>
 </head>
 <body>
   <header>
-    <h1>Rikesh Sharma</h1>
-    <h2>Software Engineer</h2>
+    <nav>
+      <a href="#home" class="logo">Logo</a>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#nav-cta">Hire me</a></li>
+        <li><a href="#contact">E-mail me</a></li>
+        <li>
+          <button class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode">
+            <span class="sun">☀</span>
+            <span class="moon">☾</span>
+            <span class="toggle-thumb"></span>
+          </button>
+        </li>
+      </ul>
+    </nav>
   </header>
-  <nav>
-    <a href="#blog">blog</a>
-    <a href="#contact">e-mail me</a>
-  </nav>
 
   <main>
+    <section class="hero">
+      <div>
+        <h1>Rikesh Sharma</h1>
+        <h2>Software Engineer</h2>
+      </div>
+    </section>
+
     <section id="carrier">carrier</section>
     <section id="skill">skill</section>
     <section id="project">project</section>

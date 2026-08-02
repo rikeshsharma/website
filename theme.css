@@ -64,3 +64,7 @@ body.dark-mode .sun {
 body.dark-mode .moon {
   opacity: 1;
 }
+
+body.dark-mode .logo-inner {
+  fill: #b2b3b6;
+}

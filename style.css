@@ -17,16 +17,25 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 960px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }
 
 nav .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-weight: 700;
   font-size: 1.1rem;
   color: #333;
   text-decoration: none;
+}
+
+.logo-image {
+  display: block;
+  width: 36px;
+  height: 36px;
 }
 
 nav .logo:hover {

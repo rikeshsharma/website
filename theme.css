@@ -68,3 +68,8 @@ body.dark-mode .moon {
 body.dark-mode .logo-inner {
   fill: #b2b3b6;
 }
+
+body.dark-mode nav ul {
+  background: rgba(178, 179, 182, 0.8);
+  border-bottom-color: rgba(30, 41, 59, 0.15);
+}

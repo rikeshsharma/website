@@ -1,5 +1,5 @@
 .hero {
-  padding: 4rem 1.5rem 6rem;
+  padding: 4rem 1.5rem 0;
 }
 
 .hero::after {

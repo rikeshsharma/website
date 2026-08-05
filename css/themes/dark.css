@@ -1,0 +1,303 @@
+/*
+  Centralized dark-mode theme.
+
+  Every `body.dark-mode` override in the project lives here, grouped by the
+  component/section it affects, loaded after every other stylesheet so it
+  reliably wins on selector-specificity ties. Most overrides are just the
+  same two dark-mode text colors (--color-dark-heading / --color-dark-body)
+  reapplied per component; true one-off overrides (backgrounds, borders,
+  shadows) stay inline where they occur.
+*/
+
+/* Base */
+
+body.dark-mode {
+  background: var(--color-dark-slate);
+}
+
+/* Header / nav */
+
+body.dark-mode .logo-inner {
+  fill: var(--color-dark-slate);
+}
+
+body.dark-mode header nav ul {
+  background: rgba(var(--color-dark-slate-rgb), 0.8);
+  border-bottom-color: rgba(var(--color-dark-heading-rgb), 0.15);
+}
+
+body.dark-mode .nav-toggle {
+  background: rgba(var(--color-dark-slate-rgb), 0.8);
+}
+
+body.dark-mode .nav-toggle-bar {
+  background: var(--color-dark-heading);
+}
+
+/* Theme toggle */
+
+body.dark-mode .theme-toggle {
+  background: var(--color-dark-heading);
+}
+
+body.dark-mode .toggle-thumb {
+  transform: translateX(34px);
+  background: var(--color-dark-thumb);
+}
+
+body.dark-mode .sun {
+  opacity: 0.45;
+}
+
+body.dark-mode .moon {
+  opacity: 1;
+}
+
+/* Section divider (shared rule, one background for every section that uses it) */
+
+body.dark-mode .hero::after,
+body.dark-mode .carrier::after,
+body.dark-mode .skills::after,
+body.dark-mode .projects::after,
+body.dark-mode .about::after {
+  background: linear-gradient(90deg, transparent, rgba(var(--color-dark-heading-rgb), 0.7) 50%, transparent);
+}
+
+/* Hero */
+
+body.dark-mode .hero-content h1 {
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .hero-content h3 {
+  color: var(--color-dark-body);
+}
+
+body.dark-mode .rikesh-image {
+  border-color: var(--color-dark-heading);
+}
+
+body.dark-mode .social-link {
+  border-color: rgba(var(--color-dark-heading-rgb), 0.4);
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .social-link:hover {
+  background-color: var(--color-dark-heading);
+  border-color: var(--color-dark-heading);
+  color: var(--color-white);
+}
+
+/* Carrier */
+
+body.dark-mode .carrier-title {
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .timeline::before {
+  background: rgba(var(--color-dark-heading-rgb), 0.35);
+}
+
+body.dark-mode .timeline-logo {
+  background: var(--color-white);
+  border-color: var(--color-dark-heading);
+}
+
+body.dark-mode .timeline-year {
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .timeline-role {
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .timeline-org,
+body.dark-mode .timeline-desc {
+  color: var(--color-dark-body);
+}
+
+body.dark-mode .timeline-subsections {
+  border-left-color: rgba(var(--color-dark-heading-rgb), 0.35);
+}
+
+body.dark-mode .timeline-subsections::before,
+body.dark-mode .timeline-subsections::after {
+  background: rgba(var(--color-dark-heading-rgb), 0.35);
+}
+
+body.dark-mode .subsection-title {
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .subsection-desc {
+  color: var(--color-dark-body);
+}
+
+/* Skills */
+
+body.dark-mode .skills-title {
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .skills-subtitle {
+  color: var(--color-dark-body);
+}
+
+body.dark-mode .skill-chip {
+  background: rgba(var(--color-white-rgb), 0.4);
+  border-color: rgba(var(--color-dark-heading-rgb), 0.15);
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .skill-chip--badge {
+  color: var(--color-dark-body);
+}
+
+body.dark-mode .skill-chip:hover {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: var(--color-white);
+}
+
+/* Projects */
+
+body.dark-mode .projects-title {
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .projects-subtitle {
+  color: var(--color-dark-body);
+}
+
+body.dark-mode .project-card {
+  background: rgba(var(--color-white-rgb), 0.4);
+  border-color: rgba(var(--color-dark-heading-rgb), 0.15);
+}
+
+body.dark-mode .project-card:hover,
+body.dark-mode .project-card:focus-within,
+body.dark-mode .project-card.is-open {
+  border-color: rgba(var(--color-brand-rgb), 0.45);
+  box-shadow: 0 24px 48px rgba(var(--color-dark-heading-rgb), 0.16);
+}
+
+body.dark-mode .project-card-image {
+  background: rgba(var(--color-white-rgb), 0.5);
+}
+
+body.dark-mode .project-card-title {
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .project-card-desc {
+  color: var(--color-dark-body);
+}
+
+/* About */
+
+body.dark-mode .about-heading {
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .about-lede {
+  color: var(--color-dark-body);
+}
+
+body.dark-mode .about-summary p {
+  color: var(--color-dark-body);
+}
+
+body.dark-mode .about-fact {
+  border-top-color: rgba(var(--color-dark-heading-rgb), 0.15);
+}
+
+body.dark-mode .about-fact dt {
+  color: var(--color-dark-body);
+}
+
+body.dark-mode .about-fact dd {
+  color: var(--color-dark-heading);
+}
+
+/* Contact */
+
+body.dark-mode .contact-heading {
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .contact-lede {
+  color: var(--color-dark-body);
+}
+
+body.dark-mode .contact-field label {
+  color: var(--color-dark-body);
+}
+
+body.dark-mode .contact-field input,
+body.dark-mode .contact-field textarea {
+  background: rgba(var(--color-white-rgb), 0.5);
+  border-color: rgba(var(--color-dark-heading-rgb), 0.15);
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .contact-field input::placeholder,
+body.dark-mode .contact-field textarea::placeholder {
+  color: rgba(var(--color-dark-heading-rgb), 0.4);
+}
+
+body.dark-mode .contact-field input:hover,
+body.dark-mode .contact-field textarea:hover {
+  border-color: rgba(var(--color-dark-heading-rgb), 0.3);
+}
+
+body.dark-mode .contact-panel-title {
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .contact-social-item {
+  border-top-color: rgba(var(--color-dark-heading-rgb), 0.15);
+}
+
+body.dark-mode .contact-social-icon {
+  color: var(--color-dark-body);
+}
+
+body.dark-mode .contact-social-name {
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .contact-social-arrow {
+  color: rgba(var(--color-dark-heading-rgb), 0.5);
+}
+
+body.dark-mode .contact-email-link {
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode .contact-email-link .contact-social-icon {
+  color: var(--color-dark-body);
+}
+
+body.dark-mode .contact-history-pill {
+  background: rgba(var(--color-brand-rgb), 0.1);
+}
+
+body.dark-mode .envelope,
+body.dark-mode .envelope-letter {
+  background: var(--color-white);
+}
+
+body.dark-mode .contact-history-popover {
+  background: var(--color-dark-history-popover-bg);
+  border-color: rgba(var(--color-dark-heading-rgb), 0.15);
+}
+
+body.dark-mode .contact-history-row dd {
+  color: var(--color-dark-heading);
+}
+
+/* Footer (deliberately dark surface in both themes) */
+
+body.dark-mode .site-footer {
+  background: var(--color-footer-bg-dark-mode);
+}

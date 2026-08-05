@@ -1,150 +1,12 @@
-const navToggle = document.getElementById("navToggle");
-const primaryNav = document.getElementById("primaryNav");
+(function contactForm() {
+  "use strict";
 
-if (navToggle && primaryNav) {
-  const navItems = Array.from(primaryNav.children);
-  navItems.forEach((item, index) => {
-    item.style.setProperty("--i", index);
-    item.style.setProperty("--ri", navItems.length - 1 - index);
-  });
+  const contactSection = document.querySelector(".contact");
+  PortfolioUtils.observeReveal(contactSection);
 
-  const closeNav = () => {
-    primaryNav.classList.remove("is-open");
-    navToggle.setAttribute("aria-expanded", "false");
-    navToggle.setAttribute("aria-label", "Open menu");
-  };
+  const contactFormEl = document.getElementById("contactForm");
+  if (!contactFormEl) return;
 
-  const openNav = () => {
-    primaryNav.classList.add("is-open");
-    navToggle.setAttribute("aria-expanded", "true");
-    navToggle.setAttribute("aria-label", "Close menu");
-  };
-
-  navToggle.addEventListener("click", () => {
-    if (primaryNav.classList.contains("is-open")) {
-      closeNav();
-    } else {
-      openNav();
-    }
-  });
-
-  primaryNav.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", closeNav);
-  });
-
-  document.addEventListener("click", (event) => {
-    if (!event.target.closest("#primaryNav") && !event.target.closest("#navToggle")) {
-      closeNav();
-    }
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeNav();
-    }
-  });
-}
-
-const themeToggle = document.getElementById("themeToggle");
-
-themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-
-  const darkMode = document.body.classList.contains("dark-mode");
-  themeToggle.setAttribute(
-    "aria-label",
-    darkMode ? "Switch to light mode" : "Switch to dark mode"
-  );
-});
-
-const projectsGrid = document.querySelector(".projects-grid");
-
-if (projectsGrid) {
-  const gridObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-  gridObserver.observe(projectsGrid);
-
-  projectsGrid.querySelectorAll(".project-card").forEach((card) => {
-    card.addEventListener("click", () => {
-      const wasOpen = card.classList.contains("is-open");
-      projectsGrid
-        .querySelectorAll(".project-card.is-open")
-        .forEach((open) => open.classList.remove("is-open"));
-      if (!wasOpen) {
-        card.classList.add("is-open");
-      }
-    });
-  });
-}
-
-const aboutSection = document.querySelector(".about");
-
-if (aboutSection) {
-  const aboutObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-  aboutObserver.observe(aboutSection);
-}
-
-const contactSection = document.querySelector(".contact");
-
-if (contactSection) {
-  const contactObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-  contactObserver.observe(contactSection);
-}
-
-const siteFooter = document.querySelector(".site-footer");
-
-if (siteFooter) {
-  const footerObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-  footerObserver.observe(siteFooter);
-}
-
-const footerYear = document.getElementById("footerYear");
-if (footerYear) {
-  footerYear.textContent = new Date().getFullYear();
-}
-
-const contactForm = document.getElementById("contactForm");
-
-if (contactForm) {
   const contactFields = {
     name: {
       input: document.getElementById("contactName"),
@@ -163,8 +25,6 @@ if (contactForm) {
     },
   };
   const contactStatus = document.getElementById("contactFormStatus");
-
-  const CONTACT_HISTORY_KEY = "contactHistory";
 
   const contactHistory = document.getElementById("contactHistory");
   const contactHistoryToggle = document.getElementById("contactHistoryToggle");
@@ -186,7 +46,7 @@ if (contactForm) {
 
   const readContactHistory = () => {
     try {
-      const raw = localStorage.getItem(CONTACT_HISTORY_KEY);
+      const raw = localStorage.getItem(PortfolioConfig.CONTACT_HISTORY_STORAGE_KEY);
       return raw ? JSON.parse(raw) : null;
     } catch (error) {
       return null;
@@ -206,7 +66,7 @@ if (contactForm) {
 
   const saveContactHistory = (entry) => {
     try {
-      localStorage.setItem(CONTACT_HISTORY_KEY, JSON.stringify(entry));
+      localStorage.setItem(PortfolioConfig.CONTACT_HISTORY_STORAGE_KEY, JSON.stringify(entry));
     } catch (error) {
       /* localStorage unavailable (e.g. private browsing) — history just won't persist */
     }
@@ -273,7 +133,7 @@ if (contactForm) {
     field.input.addEventListener("input", () => clearFieldError(field));
   });
 
-  contactForm.addEventListener("submit", (event) => {
+  contactFormEl.addEventListener("submit", (event) => {
     event.preventDefault();
     contactStatus.textContent = "";
 
@@ -307,7 +167,7 @@ if (contactForm) {
     contactStatus.textContent = "Opening your email client…";
 
     saveContactHistory({ name, email, message });
-    contactForm.reset();
+    contactFormEl.reset();
     Object.values(contactFields).forEach((field) => clearFieldError(field));
   });
-}
+})();

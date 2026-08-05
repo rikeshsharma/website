@@ -1,0 +1,33 @@
+/*
+  Shared scroll-reveal base state for the About / Contact / Footer sections.
+  Each section keeps its own `transition` (durations differ) and its own
+  `.in-view` rules with stagger delays — only the identical hidden-state and
+  reduced-motion reset are centralized here.
+*/
+
+.about-header,
+.about-summary,
+.about-facts,
+.contact-header,
+.contact-form,
+.contact-panel,
+.footer-top,
+.footer-bottom {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-header,
+  .about-summary,
+  .about-facts,
+  .contact-header,
+  .contact-form,
+  .contact-panel,
+  .footer-top,
+  .footer-bottom {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}

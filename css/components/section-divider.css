@@ -1,0 +1,18 @@
+/*
+  Thin gradient rule used at the top of most main sections. Shared here since
+  every section uses the same width/height/gradient and only overrides the
+  margin (set per-section, next to the section's other spacing rules).
+*/
+
+.hero::after,
+.carrier::after,
+.skills::after,
+.projects::after,
+.about::after {
+  content: "";
+  display: block;
+  width: 100%;
+  max-width: 1920px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--color-black-rgb), 0.6) 50%, transparent);
+}

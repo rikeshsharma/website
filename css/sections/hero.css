@@ -3,17 +3,7 @@
 }
 
 .hero::after {
-  content: "";
-  display: block;
-  width: 100%;
-  max-width: 1920px;
-  height: 1px;
   margin: 70px auto 40px;
-  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.6) 50%, transparent);
-}
-
-body.dark-mode .hero::after {
-  background: linear-gradient(90deg, transparent, rgba(30, 41, 59, 0.7) 50%, transparent);
 }
 
 .hero-container {
@@ -34,8 +24,8 @@ body.dark-mode .hero::after {
   content: "";
   position: absolute;
   inset: -10px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #C8503C, #C8503C);
+  border-radius: var(--radius-circle);
+  background: linear-gradient(135deg, var(--color-brand), var(--color-brand));
   opacity: 0.25;
   z-index: -1;
 }
@@ -45,9 +35,9 @@ body.dark-mode .hero::after {
   width: 320px;
   height: 320px;
   object-fit: cover;
-  border-radius: 50%;
-  border: 6px solid white;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius-circle);
+  border: 6px solid var(--color-white);
+  box-shadow: 0 20px 40px rgba(var(--color-black-rgb), 0.12);
 }
 
 .hero-content {
@@ -61,14 +51,14 @@ body.dark-mode .hero::after {
   font-size: 3rem;
   line-height: 1.1;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-heading);
 }
 
 .hero-content h2 {
   margin: 0.5rem 0 0;
   font-size: 1.25rem;
   font-weight: 500;
-  color: #C8503C;
+  color: var(--color-brand);
   letter-spacing: 0.02em;
 }
 
@@ -77,7 +67,7 @@ body.dark-mode .hero::after {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.6;
-  color: #555;
+  color: var(--color-text-secondary);
 }
 
 .hero-socials {
@@ -94,9 +84,9 @@ body.dark-mode .hero::after {
   justify-content: center;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
-  border: 1px solid #e0e0e0;
-  color: #555;
+  border-radius: var(--radius-circle);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -106,9 +96,9 @@ body.dark-mode .hero::after {
 }
 
 .social-link:hover {
-  background-color: #C8503C;
-  border-color: #C8503C;
-  color: #fff;
+  background-color: var(--color-brand);
+  border-color: var(--color-brand);
+  color: var(--color-white);
   transform: translateY(-2px);
 }
 
@@ -131,27 +121,4 @@ body.dark-mode .hero::after {
   .hero-content h1 {
     font-size: 2.25rem;
   }
-}
-
-body.dark-mode .hero-content h1 {
-  color: #1e293b;
-}
-
-body.dark-mode .hero-content h3 {
-  color: #33415b;
-}
-
-body.dark-mode .rikesh-image {
-  border-color: #1e293b;
-}
-
-body.dark-mode .social-link {
-  border-color: rgba(30, 41, 59, 0.4);
-  color: #1e293b;
-}
-
-body.dark-mode .social-link:hover {
-  background-color: #1e293b;
-  border-color: #1e293b;
-  color: #fff;
 }

@@ -1,0 +1,74 @@
+/*
+  Design tokens.
+
+  Each token below is a literal value that already existed somewhere in the
+  CSS before this refactor — this file just gives each one a name so it has
+  a single source of truth. Distinct shades (e.g. #555 vs #666) are kept as
+  distinct tokens rather than merged, so no computed color changes anywhere.
+
+  Alpha variants (borders/shadows/tints) are built from the *-rgb tokens via
+  rgba(var(--x-rgb), <alpha>) so the opacity chosen at each call site stays
+  visible and exact, instead of hiding it behind a dozen near-duplicate
+  fixed-alpha tokens.
+*/
+
+:root {
+  /* Brand */
+  --color-brand: #C8503C;
+  --color-brand-rgb: 200, 80, 60;
+  --color-brand-hover: #b8452f;
+
+  /* Light-mode neutrals */
+  --color-white: #fff;
+  --color-white-rgb: 255, 255, 255;
+  --color-black: #000;
+  --color-black-rgb: 0, 0, 0;
+  --color-heading: #1a1a1a;
+  --color-body: #333;
+  --color-text-secondary: #555;
+  --color-text-muted: #666;
+  --color-text-faint: #999;
+  --color-text-faint-2: #aaa;
+  --color-border: #e0e0e0;
+  --color-border-strong: #c8c8c8;
+  --color-surface-hover: #f0f0f0;
+  --color-project-image-bg: #f4f3f1;
+
+  /* Dark-mode neutrals */
+  --color-dark-heading: #1e293b;
+  --color-dark-heading-rgb: 30, 41, 59;
+  --color-dark-body: #33415b;
+  --color-dark-slate: #b2b3b6;
+  --color-dark-slate-rgb: 178, 179, 182;
+  --color-dark-thumb: #334155;
+  --color-dark-history-popover-bg: #f4ede9;
+
+  /* Semantic */
+  --color-error: #d6473f;
+  --color-error-rgb: 214, 71, 63;
+  --color-success: #2f8f4e;
+
+  /* Footer (deliberately dark surface in both themes) */
+  --color-footer-bg: #181410;
+  --color-footer-bg-dark-mode: #100f0d;
+  --color-footer-cream: #FFF7ED;
+  --color-footer-cream-rgb: 255, 247, 237;
+  --color-footer-muted: #a39a90;
+  --color-footer-copyright: #7d7469;
+  --color-footer-pill-text: #e8a897;
+
+  /* Theme toggle */
+  --color-toggle-track-light: #f3d767;
+  --color-toggle-sun: #e89b00;
+  --color-toggle-moon: #f8fafc;
+  --color-toggle-thumb: #ffffff;
+  --color-toggle-envelope-bg: #fff9f7;
+
+  /* Radius scale */
+  --radius-sm: 12px;
+  --radius-md: 14px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+}

@@ -7,13 +7,26 @@ body{
   color: #333;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 header {
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
-nav {
+/* Sticky header overlaps whatever it's pinned above, so anchor targets need
+   room to clear it — matches the header's rendered height plus a small gap. */
+main section[id] {
+  scroll-margin-top: 8.5rem;
+}
+
+header nav {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,7 +35,7 @@ nav {
   padding: 2rem 1.5rem;
 }
 
-nav .logo {
+header nav .logo {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -38,11 +51,11 @@ nav .logo {
   height: 36px;
 }
 
-nav .logo:hover {
+header nav .logo:hover {
   color: #000;
 }
 
-nav ul {
+header nav ul {
   list-style: none;
   margin: 0;
   padding: 0.6rem 0.8rem;
@@ -58,16 +71,124 @@ nav ul {
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-nav ul li a {
+header nav ul li a {
+  display: inline-block;
   color: #555;
   text-decoration: none;
   font-size: 0.95rem;
   padding: 0.4rem 1rem;
   border-radius: 999px;
+  white-space: nowrap;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-nav ul li a:hover {
+header nav ul li a:hover {
   background-color: #f0f0f0;
   color: #000;
+}
+
+header nav ul li a.nav-link-external {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.external-link-icon {
+  opacity: 0.6;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+}
+
+.nav-toggle-bar {
+  width: 24px;
+  height: 2.5px;
+  background: #333;
+  border-radius: 999px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+  transform: translateY(8.5px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-8.5px) rotate(-45deg);
+}
+
+@media (max-width: 960px) {
+  header nav {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  header nav ul {
+    position: absolute;
+    top: 100%;
+    left: 1.25rem;
+    right: 1.25rem;
+    margin-top: 0.75rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
+    padding: 0.75rem;
+    border-radius: 22px;
+    display: none;
+  }
+
+  header nav ul.is-open {
+    display: flex;
+  }
+
+  header nav ul li {
+    width: 100%;
+  }
+
+  header nav ul li a {
+    display: block;
+    text-align: center;
+    border-radius: 14px;
+  }
+
+  header nav ul li a.nav-link-external {
+    display: flex;
+    justify-content: center;
+  }
+
+  header nav ul li:last-child {
+    display: flex;
+    justify-content: center;
+    padding-top: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header nav .logo-name {
+    display: none;
+  }
+
+  header nav ul {
+    left: 1rem;
+    right: 1rem;
+  }
 }

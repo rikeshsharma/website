@@ -69,7 +69,15 @@ body.dark-mode .logo-inner {
   fill: #b2b3b6;
 }
 
-body.dark-mode nav ul {
+body.dark-mode header nav ul {
   background: rgba(178, 179, 182, 0.8);
   border-bottom-color: rgba(30, 41, 59, 0.15);
+}
+
+body.dark-mode .nav-toggle {
+  background: rgba(178, 179, 182, 0.8);
+}
+
+body.dark-mode .nav-toggle-bar {
+  background: #1e293b;
 }

@@ -8,7 +8,7 @@
   width: 100%;
   max-width: 1920px;
   height: 1px;
-  margin: 32px auto;
+  margin: 70px auto 50px;
   background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.6) 50%, transparent);
 }
 
@@ -23,8 +23,10 @@ body.dark-mode .skills::after {
 
 .skills-title {
   margin: 0 0 0.6rem;
-  font-size: 2rem;
+  font-size: clamp(2.25rem, 4.5vw, 3.25rem);
   font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   text-align: center;
   color: #1a1a1a;
 }
@@ -147,7 +149,7 @@ body.dark-mode .skills::after {
 
 @media (max-width: 640px) {
   .skills-title {
-    font-size: 1.6rem;
+    font-size: 2rem;
   }
 
   .skill-chip {

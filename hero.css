@@ -8,7 +8,7 @@
   width: 100%;
   max-width: 1920px;
   height: 1px;
-  margin: 60px auto;
+  margin: 70px auto 40px;
   background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.6) 50%, transparent);
 }
 

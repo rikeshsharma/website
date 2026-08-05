@@ -8,7 +8,7 @@
   width: 100%;
   max-width: 1920px;
   height: 1px;
-  margin: 70px auto;
+  margin: 70px auto 50px;
   background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.6) 50%, transparent);
 }
 
@@ -31,7 +31,7 @@ body.dark-mode .about::after {
 
 .about-eyebrow {
   margin: 0 0 0.9rem;
-  font-size: 0.8rem;
+  font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -40,7 +40,7 @@ body.dark-mode .about::after {
 
 .about-heading {
   margin: 0;
-  font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -169,7 +169,7 @@ body.dark-mode .about::after {
   }
 
   .about-heading {
-    font-size: 2rem;
+    font-size: 1.4rem;
   }
 
   .about-header {

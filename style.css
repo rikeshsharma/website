@@ -118,7 +118,13 @@ header nav ul li a.nav-link-external {
   height: 2.5px;
   background: #333;
   border-radius: 999px;
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition: transform var(--nav-icon-duration, 200ms) var(--ease-premium, cubic-bezier(0.22, 1, 0.36, 1)),
+    opacity var(--nav-icon-duration, 200ms) var(--ease-premium, cubic-bezier(0.22, 1, 0.36, 1));
+  transition-delay: var(--nav-icon-close-delay, 0ms);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar {
+  transition-delay: 0ms;
 }
 
 .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
@@ -136,6 +142,17 @@ header nav ul li a.nav-link-external {
 @media (max-width: 960px) {
   header nav {
     padding: 1.5rem 1.25rem;
+    --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+    --nav-icon-duration: 200ms;
+    --nav-icon-close-delay: 200ms;
+    --nav-container-open-duration: 280ms;
+    --nav-container-close-duration: 220ms;
+    --nav-container-close-delay: 70ms;
+    --nav-item-open-duration: 180ms;
+    --nav-item-close-duration: 160ms;
+    --nav-item-open-stagger: 50ms;
+    --nav-item-close-stagger: 40ms;
+    --nav-item-open-base-delay: 90ms;
   }
 
   .nav-toggle {
@@ -153,15 +170,41 @@ header nav ul li a.nav-link-external {
     gap: 0.3rem;
     padding: 0.75rem;
     border-radius: 22px;
-    display: none;
+    transform-origin: top center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-14px) scale(0.98);
+    transition: opacity var(--nav-container-close-duration) var(--ease-premium) var(--nav-container-close-delay),
+      transform var(--nav-container-close-duration) var(--ease-premium) var(--nav-container-close-delay),
+      visibility 0s linear calc(var(--nav-container-close-delay) + var(--nav-container-close-duration));
   }
 
   header nav ul.is-open {
-    display: flex;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    transition: opacity var(--nav-container-open-duration) var(--ease-premium),
+      transform var(--nav-container-open-duration) var(--ease-premium),
+      visibility 0s linear 0s;
   }
 
   header nav ul li {
     width: 100%;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity var(--nav-item-close-duration) var(--ease-premium),
+      transform var(--nav-item-close-duration) var(--ease-premium);
+    transition-delay: calc(var(--ri, 0) * var(--nav-item-close-stagger));
+  }
+
+  header nav ul.is-open li {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity var(--nav-item-open-duration) var(--ease-premium),
+      transform var(--nav-item-open-duration) var(--ease-premium);
+    transition-delay: calc(var(--nav-item-open-base-delay) + (var(--i, 0) * var(--nav-item-open-stagger)));
   }
 
   header nav ul li a {
@@ -179,6 +222,24 @@ header nav ul li a.nav-link-external {
     display: flex;
     justify-content: center;
     padding-top: 0.5rem;
+  }
+}
+
+@media (max-width: 960px) and (prefers-reduced-motion: reduce) {
+  header nav ul,
+  header nav ul.is-open,
+  header nav ul li,
+  header nav ul.is-open li {
+    transform: none;
+    transition-property: opacity, visibility;
+    transition-duration: 150ms;
+    transition-delay: 0s;
+  }
+
+  .nav-toggle-bar,
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar {
+    transition-duration: 120ms;
+    transition-delay: 0s;
   }
 }
 

@@ -2,6 +2,12 @@ const navToggle = document.getElementById("navToggle");
 const primaryNav = document.getElementById("primaryNav");
 
 if (navToggle && primaryNav) {
+  const navItems = Array.from(primaryNav.children);
+  navItems.forEach((item, index) => {
+    item.style.setProperty("--i", index);
+    item.style.setProperty("--ri", navItems.length - 1 - index);
+  });
+
   const closeNav = () => {
     primaryNav.classList.remove("is-open");
     navToggle.setAttribute("aria-expanded", "false");

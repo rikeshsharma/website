@@ -1,76 +1,111 @@
 /*
-  Centralized dark-mode theme.
+  Dark theme.
 
-  Every `body.dark-mode` override in the project lives here, grouped by the
-  component/section it affects, loaded after every other stylesheet so it
-  reliably wins on selector-specificity ties. Most overrides are just the
-  same two dark-mode text colors (--color-dark-heading / --color-dark-body)
-  reapplied per component; true one-off overrides (backgrounds, borders,
-  shadows) stay inline where they occur.
+  This file used to re-specify ~78 component rules, because the palette was
+  built the wrong way round: the "dark" background was #b2b3b6 — a mid grey —
+  with dark navy text on top, so it wasn't a dark theme at all, it was a dimmed
+  light one. Every component then needed a patch to survive it.
+
+  Now it re-points the semantic tokens instead, and the components follow on
+  their own. What's left below are the genuine exceptions: things that must NOT
+  simply invert.
+
+  The palette is warm rather than neutral-grey — the brand is terracotta and
+  the footer was already a warm near-black, so a cool grey dark mode would have
+  fought both. Every text token below clears 4.5:1 against --color-page.
 */
 
-/* Base */
-
 body.dark-mode {
-  background: var(--color-dark-slate);
+  /*
+    Tells the browser to render form controls, scrollbars, and the caret in
+    their dark variants. Without it the text inputs keep light-mode chrome and
+    the scrollbar stays a bright strip down the side of a dark page.
+  */
+  color-scheme: dark;
+
+  /*
+    Brand. #C8503C only manages ~4.1:1 on a near-black ground, so the accent
+    lightens here. That flips what has to sit *on* a brand fill: white on the
+    lightened terracotta would be ~2.9:1, so --color-on-brand goes dark and
+    lands at ~7:1 instead. This is the pair that makes buttons and pills work
+    in both themes without either one being restyled.
+  */
+  --color-brand: #E9866D;
+  --color-brand-rgb: 233, 134, 109;
+  --color-brand-hover: #F29A83;
+  --color-on-brand: #2A1512;
+
+  /*
+    Surfaces, lightest-on-darkest. Elevation reads through surface lightness
+    rather than shadow, because a black shadow does almost nothing against a
+    near-black page.
+  */
+  --color-page: #141110;
+  --color-surface: #1E1A18;
+  --color-surface-rgb: 30, 26, 24;
+  --color-surface-hover: #2A2523;
+  --color-project-image-bg: #1A1614;
+
+  /* Warm off-whites, stepped down in weight rather than jumping to grey. */
+  --color-text-strong: #FFFBF7;
+  --color-heading: #F7F1EC;
+  --color-body: #D6CCC4;
+  --color-text-secondary: #BCB1A8;
+  --color-text-muted: #A79C93;
+  --color-text-faint: #9C9188;
+  /* Measured against --color-surface, not --color-page: everything using this
+     (input placeholders, the history row labels) sits on a raised surface, and
+     that's the tighter of the two comparisons. */
+  --color-text-faint-2: #8E837A;
+
+  /* Ink inverts; the divider drops to a whisper because a light rule at the
+     old 0.6 alpha would cut the page in half. */
+  --color-border: #332D2A;
+  --color-border-strong: #4A423D;
+  --color-hairline-rgb: 247, 241, 236;
+  --divider-alpha: 0.22;
+
+  /* The bright edge on translucent chrome is light catching a rim — it stays
+     light, but at a fraction of the light-mode strength or it reads as a
+     drawn white line. */
+  --material-edge-alpha: 0.1;
+
+  --color-error: #F2837A;
+  --color-error-rgb: 242, 131, 122;
+  --color-success: #5FD68A;
+
+  --color-toggle-envelope-bg: #241E1B;
 }
 
-/* Header / nav */
+/* --- Genuine exceptions ------------------------------------------------- */
 
+/*
+  The logo's inner disc is a hole punched through the terracotta mark, not a
+  cream-colored shape — so it tracks the page behind it rather than staying
+  cream.
+*/
 body.dark-mode .logo-inner {
-  fill: var(--color-dark-slate);
+  fill: var(--color-page);
 }
 
-body.dark-mode header nav ul {
-  background: rgba(var(--color-dark-slate-rgb), var(--material-alpha-strong));
-  border-top-color: rgba(var(--color-white-rgb), calc(var(--material-edge-alpha) * 0.5));
-  border-bottom-color: rgba(var(--color-dark-heading-rgb), 0.15);
+/*
+  Company logos are dark artwork on transparency, so this disc has to stay
+  light in both themes — inverting it would make the Samsung wordmark and the
+  IIT mark disappear entirely.
+*/
+body.dark-mode .timeline-logo {
+  background: var(--color-white);
 }
 
-body.dark-mode header nav ul li a {
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode header nav ul li a:hover {
-  background-color: rgba(var(--color-dark-heading-rgb), 0.1);
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode header nav ul li a.is-pressed {
-  background-color: rgba(var(--color-dark-heading-rgb), 0.14);
-}
-
-/* Re-stated for dark mode: the generic dark link color above matches the
-   light-mode `[aria-current]` rule on specificity and would otherwise win on
-   order, quietly dropping the "you are here" marker. */
-body.dark-mode header nav ul li a[aria-current="true"] {
-  color: var(--color-brand);
-  background-color: rgba(var(--color-brand-rgb), 0.14);
-}
-
-body.dark-mode header nav ul li a[aria-current="true"]:hover,
-body.dark-mode header nav ul li a[aria-current="true"].is-pressed {
-  color: var(--color-brand);
-  background-color: rgba(var(--color-brand-rgb), 0.24);
-}
-
-body.dark-mode .nav-toggle {
-  background: rgba(var(--color-dark-slate-rgb), var(--material-alpha-strong));
-}
-
-body.dark-mode .nav-toggle-bar {
-  background: var(--color-dark-heading);
-}
-
-/* Theme toggle */
-
+/* Theme toggle: the track is a physical switch housing, not a surface, so it
+   gets its own values rather than following --color-surface. */
 body.dark-mode .theme-toggle {
-  background: var(--color-dark-heading);
+  background: #2A2523;
 }
 
 body.dark-mode .toggle-thumb {
   transform: translateX(34px);
-  background: var(--color-dark-thumb);
+  background: #F7F1EC;
 }
 
 body.dark-mode .sun {
@@ -81,251 +116,22 @@ body.dark-mode .moon {
   opacity: 1;
 }
 
-/* Section divider (shared rule, one background for every section that uses it) */
-
-body.dark-mode .hero::after,
-body.dark-mode .carrier::after,
-body.dark-mode .skills::after,
-body.dark-mode .projects::after,
-body.dark-mode .about::after {
-  background: linear-gradient(90deg, transparent, rgba(var(--color-dark-heading-rgb), 0.7) 50%, transparent);
-}
-
-/* Hero */
-
-body.dark-mode .hero-content h1 {
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .hero-content h3 {
-  color: var(--color-dark-body);
-}
-
-body.dark-mode .rikesh-image {
-  border-color: var(--color-dark-heading);
-}
-
-body.dark-mode .social-link {
-  border-color: rgba(var(--color-dark-heading-rgb), 0.4);
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .social-link:hover {
-  background-color: var(--color-dark-heading);
-  border-color: var(--color-dark-heading);
-  color: var(--color-white);
-}
-
-/* Carrier */
-
-body.dark-mode .carrier-title {
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .timeline::before {
-  background: rgba(var(--color-dark-heading-rgb), 0.35);
-}
-
-body.dark-mode .timeline-logo {
-  background: var(--color-white);
-  border-color: var(--color-dark-heading);
-}
-
-body.dark-mode .timeline-year {
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .timeline-role {
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .timeline-org,
-body.dark-mode .timeline-desc {
-  color: var(--color-dark-body);
-}
-
-body.dark-mode .timeline-subsections {
-  border-left-color: rgba(var(--color-dark-heading-rgb), 0.35);
-}
-
-body.dark-mode .timeline-subsections::before,
-body.dark-mode .timeline-subsections::after {
-  background: rgba(var(--color-dark-heading-rgb), 0.35);
-}
-
-body.dark-mode .subsection-title {
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .subsection-desc {
-  color: var(--color-dark-body);
-}
-
-/* Skills */
-
-body.dark-mode .skills-title {
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .skills-subtitle {
-  color: var(--color-dark-body);
-}
-
-body.dark-mode .skill-chip {
-  background: rgba(var(--color-white-rgb), 0.4);
-  border-color: rgba(var(--color-dark-heading-rgb), 0.15);
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .skill-chip--badge {
-  color: var(--color-dark-body);
-}
-
-body.dark-mode .skill-chip:hover {
-  background: var(--color-brand);
-  border-color: var(--color-brand);
-  color: var(--color-white);
-}
-
-/* Projects */
-
-body.dark-mode .projects-title {
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .projects-subtitle {
-  color: var(--color-dark-body);
-}
-
-body.dark-mode .project-card {
-  background: rgba(var(--color-white-rgb), 0.4);
-  border-color: rgba(var(--color-dark-heading-rgb), 0.15);
-}
-
-body.dark-mode .project-card:hover,
-body.dark-mode .project-card:focus-within,
-body.dark-mode .project-card.is-open {
-  border-color: rgba(var(--color-brand-rgb), 0.45);
-  box-shadow: 0 24px 48px rgba(var(--color-dark-heading-rgb), 0.16);
-}
-
-body.dark-mode .project-card-image {
-  background: rgba(var(--color-white-rgb), 0.5);
-}
-
-body.dark-mode .project-card-title {
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .project-card-desc {
-  color: var(--color-dark-body);
-}
-
-/* About */
-
-body.dark-mode .about-heading {
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .about-lede {
-  color: var(--color-dark-body);
-}
-
-body.dark-mode .about-summary p {
-  color: var(--color-dark-body);
-}
-
-body.dark-mode .about-fact {
-  border-top-color: rgba(var(--color-dark-heading-rgb), 0.15);
-}
-
-body.dark-mode .about-fact dt {
-  color: var(--color-dark-body);
-}
-
-body.dark-mode .about-fact dd {
-  color: var(--color-dark-heading);
-}
-
-/* Contact */
-
-body.dark-mode .contact-heading {
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .contact-lede {
-  color: var(--color-dark-body);
-}
-
-body.dark-mode .contact-field label {
-  color: var(--color-dark-body);
-}
-
-body.dark-mode .contact-field input,
-body.dark-mode .contact-field textarea {
-  background: rgba(var(--color-white-rgb), 0.5);
-  border-color: rgba(var(--color-dark-heading-rgb), 0.15);
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .contact-field input::placeholder,
-body.dark-mode .contact-field textarea::placeholder {
-  color: rgba(var(--color-dark-heading-rgb), 0.4);
-}
-
-body.dark-mode .contact-field input:hover,
-body.dark-mode .contact-field textarea:hover {
-  border-color: rgba(var(--color-dark-heading-rgb), 0.3);
-}
-
-body.dark-mode .contact-panel-title {
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .contact-social-item {
-  border-top-color: rgba(var(--color-dark-heading-rgb), 0.15);
-}
-
-body.dark-mode .contact-social-icon {
-  color: var(--color-dark-body);
-}
-
-body.dark-mode .contact-social-name {
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .contact-social-arrow {
-  color: rgba(var(--color-dark-heading-rgb), 0.5);
-}
-
-body.dark-mode .contact-email-link {
-  color: var(--color-dark-heading);
-}
-
-body.dark-mode .contact-email-link .contact-social-icon {
-  color: var(--color-dark-body);
-}
-
-body.dark-mode .contact-history-pill {
-  background: rgba(var(--color-brand-rgb), 0.1);
-}
-
-body.dark-mode .envelope,
-body.dark-mode .envelope-letter {
-  background: var(--color-white);
-}
-
-body.dark-mode .contact-history-popover {
-  background: var(--color-dark-history-popover-bg);
-  border-color: rgba(var(--color-dark-heading-rgb), 0.15);
-}
-
-body.dark-mode .contact-history-row dd {
-  color: var(--color-dark-heading);
-}
-
-/* Footer (deliberately dark surface in both themes) */
-
+/* The footer is a deliberately dark surface in both themes; in dark mode it
+   goes a step deeper than the page so it still reads as a distinct band. */
 body.dark-mode .site-footer {
   background: var(--color-footer-bg-dark-mode);
+}
+
+/* Re-stated for dark mode: the nav's generic link color matches the
+   light-mode `[aria-current]` rule on specificity and would otherwise win on
+   order, quietly dropping the "you are here" marker. */
+body.dark-mode header nav ul li a[aria-current="true"] {
+  color: var(--color-brand);
+  background-color: rgba(var(--color-brand-rgb), 0.16);
+}
+
+body.dark-mode header nav ul li a[aria-current="true"]:hover,
+body.dark-mode header nav ul li a[aria-current="true"].is-pressed {
+  color: var(--color-brand);
+  background-color: rgba(var(--color-brand-rgb), 0.26);
 }

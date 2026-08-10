@@ -17,11 +17,46 @@
   --color-brand: #C8503C;
   --color-brand-rgb: 200, 80, 60;
   --color-brand-hover: #b8452f;
+  /*
+    Text and icons sitting *on* a brand fill. Split out from plain white
+    because the two stop agreeing in dark mode: the fill lightens there, so
+    what sits on it has to darken. Every button, pill and hover fill reads
+    this instead of naming a color directly.
+  */
+  --color-on-brand: #fff;
 
-  /* Light-mode neutrals */
+  /*
+    Semantic surfaces. These were literal `--color-white` before, which was
+    fine until a theme needed a surface that isn't white — the name then
+    describes the value instead of the job, and a dark theme has to override
+    every component that used it rather than the one token underneath.
+
+    `--color-white` still exists below and still means white: it's used for
+    the bright top edge on translucent materials, which stays a light tint in
+    both themes because it represents light catching an edge.
+  */
+  --color-page: #fff;
+  --color-surface: #fff;
+  --color-surface-rgb: 255, 255, 255;
+  /* The strongest text weight, for hover states that go past --color-heading. */
+  --color-text-strong: #000;
+
+  /*
+    Hairlines — 1px rules drawn as a tint of the foreground (chip borders, the
+    nav's lower edge, section dividers). Distinct from --color-black-rgb, which
+    stays black in both themes because it draws *shadows*: a shadow is an
+    absence of light, so it doesn't invert when the theme does. A hairline is
+    ink, so it does.
+  */
+  --color-hairline-rgb: 0, 0, 0;
+  --divider-alpha: 0.6;
+
+  /* Light-mode neutrals. --color-white survives as a literal because two
+     things genuinely stay white in both themes: the bright edge on
+     translucent chrome, and the disc behind the dark company logos.
+     --color-black-rgb is shadows only. */
   --color-white: #fff;
   --color-white-rgb: 255, 255, 255;
-  --color-black: #000;
   --color-black-rgb: 0, 0, 0;
   --color-heading: #1a1a1a;
   --color-body: #333;
@@ -34,14 +69,8 @@
   --color-surface-hover: #f0f0f0;
   --color-project-image-bg: #f4f3f1;
 
-  /* Dark-mode neutrals */
-  --color-dark-heading: #1e293b;
-  --color-dark-heading-rgb: 30, 41, 59;
-  --color-dark-body: #33415b;
-  --color-dark-slate: #b2b3b6;
-  --color-dark-slate-rgb: 178, 179, 182;
-  --color-dark-thumb: #334155;
-  --color-dark-history-popover-bg: #f4ede9;
+  /* Dark-mode values live in css/themes/dark.css, as overrides of the
+     semantic tokens above rather than a parallel set of names. */
 
   /* Semantic */
   --color-error: #d6473f;

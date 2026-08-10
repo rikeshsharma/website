@@ -59,7 +59,7 @@
   width: 64px;
   height: 64px;
   border-radius: var(--radius-circle);
-  background: var(--color-white);
+  background: var(--color-surface);
   border: 3px solid var(--color-brand);
   box-shadow: 0 4px 12px rgba(var(--color-black-rgb), 0.1);
 }

@@ -14,5 +14,5 @@
   width: 100%;
   max-width: 1920px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(var(--color-black-rgb), 0.6) 50%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(var(--color-hairline-rgb), var(--divider-alpha)) 50%, transparent);
 }

@@ -78,7 +78,7 @@
   padding: 0.85rem 1rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  background: var(--color-white);
+  background: var(--color-surface);
   color: var(--color-heading);
   font-family: inherit;
   font-size: 0.98rem;
@@ -140,7 +140,7 @@
   border: none;
   border-radius: var(--radius-pill);
   background: var(--color-brand);
-  color: var(--color-white);
+  color: var(--color-on-brand);
   font-family: inherit;
   font-size: 1rem;
   font-weight: 700;
@@ -203,7 +203,7 @@
   width: 20px;
   height: 14px;
   border-radius: 3px;
-  background: var(--color-white);
+  background: var(--color-surface);
   border: 1.5px solid var(--color-brand);
   perspective: 40px;
 }
@@ -264,7 +264,7 @@
   box-sizing: border-box;
   padding: 1.1rem 1.2rem;
   border-radius: var(--radius-lg);
-  background: var(--color-white);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   box-shadow: 0 16px 36px rgba(var(--color-black-rgb), 0.14);
   z-index: 5;
@@ -331,7 +331,7 @@
   border: none;
   border-radius: var(--radius-pill);
   background: var(--color-brand);
-  color: var(--color-white);
+  color: var(--color-on-brand);
   font-family: inherit;
   font-size: 0.85rem;
   font-weight: 700;

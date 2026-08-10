@@ -127,8 +127,8 @@
   height: 42px;
   padding: 0 1.15rem;
   border-radius: var(--radius-pill);
-  border: 2px solid rgba(var(--color-black-rgb), 0.08);
-  background: var(--color-white);
+  border: 2px solid rgba(var(--color-hairline-rgb), 0.08);
+  background: var(--color-surface);
   box-shadow: 0 2px 10px rgba(var(--color-black-rgb), 0.05);
   white-space: nowrap;
   color: var(--color-body);
@@ -162,7 +162,7 @@
   transform: scale(1.08);
   background: var(--color-brand);
   border-color: var(--color-brand);
-  color: var(--color-white);
+  color: var(--color-on-brand);
   box-shadow: 0 8px 20px rgba(var(--color-brand-rgb), 0.28);
 }
 

@@ -37,7 +37,7 @@ header nav .logo {
 }
 
 header nav .logo:hover {
-  color: var(--color-black);
+  color: var(--color-text-strong);
 }
 
 /*
@@ -58,12 +58,12 @@ header nav ul {
   border: 0px solid var(--color-border);
   border-radius: var(--radius-pill);
   box-shadow: 0 8px 24px rgba(var(--color-black-rgb), 0.16);
-  background: rgba(var(--color-white-rgb), var(--material-alpha-strong));
+  background: rgba(var(--color-surface-rgb), var(--material-alpha-strong));
   backdrop-filter: blur(var(--material-blur-strong)) saturate(var(--material-saturate));
   -webkit-backdrop-filter: blur(var(--material-blur-strong)) saturate(var(--material-saturate));
   /* A bright top edge reads as light catching the near edge of the material. */
   border-top: 1px solid rgba(var(--color-white-rgb), var(--material-edge-alpha));
-  border-bottom: 1px solid rgba(var(--color-black-rgb), var(--material-border-alpha));
+  border-bottom: 1px solid rgba(var(--color-hairline-rgb), var(--material-border-alpha));
   transition: box-shadow var(--response) var(--ease-enter);
 }
 
@@ -91,7 +91,7 @@ header nav ul li a {
 
 header nav ul li a:hover {
   background-color: var(--color-surface-hover);
-  color: var(--color-black);
+  color: var(--color-text-strong);
 }
 
 /* Feedback lands on the press, not on release (see js/components/press.js). */
@@ -142,7 +142,7 @@ header nav ul li a.nav-link-external {
   padding: 0;
   border: none;
   border-radius: var(--radius-pill);
-  background: rgba(var(--color-white-rgb), var(--material-alpha-strong));
+  background: rgba(var(--color-surface-rgb), var(--material-alpha-strong));
   backdrop-filter: blur(var(--material-blur)) saturate(var(--material-saturate));
   -webkit-backdrop-filter: blur(var(--material-blur)) saturate(var(--material-saturate));
   box-shadow: 0 8px 24px rgba(var(--color-black-rgb), 0.16);

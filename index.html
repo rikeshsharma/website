@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Matches the dark page background so mobile browser chrome doesn't frame
+       the site in a white bar. Kept in sync by js/components/theme-toggle.js. -->
+  <meta name="theme-color" content="#141110">
   <title>Rikesh Sharma</title>
   <link rel="icon" href="assets/brand/scopedrift-symbol.ico" sizes="16x16 32x32 48x48">
   <link rel="stylesheet" href="css/variables.css">
@@ -14,6 +17,7 @@
   <link rel="stylesheet" href="css/components/section-divider.css">
   <link rel="stylesheet" href="css/components/reveal.css">
   <link rel="stylesheet" href="css/components/project-card.css">
+  <link rel="stylesheet" href="css/components/hero-glow.css">
   <link rel="stylesheet" href="css/sections/hero.css">
   <link rel="stylesheet" href="css/sections/carrier.css">
   <link rel="stylesheet" href="css/sections/skills.css">
@@ -28,6 +32,7 @@
   <script defer src="js/components/press.js"></script>
   <script defer src="js/components/nav-scroll.js"></script>
   <script defer src="js/components/mobile-menu.js"></script>
+  <script defer src="js/components/hero-glow.js"></script>
   <script defer src="js/components/skills-marquee.js"></script>
   <script defer src="js/components/theme-toggle.js"></script>
   <script defer src="js/components/project-cards.js"></script>
@@ -35,7 +40,11 @@
   <script defer src="js/sections/about.js"></script>
   <script defer src="js/sections/footer.js"></script>
 </head>
-<body>
+<!-- Dark is the default theme. Set here in the markup rather than from JS so
+     the very first style computation is already dark — applying it after load
+     would paint one white frame first, and a full-viewport flash is the most
+     jarring thing a dark site can do. -->
+<body class="dark-mode">
   <!-- Shared icon sprite: symbols reused across the header, hero, contact
        panel, and footer. Each usage wraps its own <svg> so sizing/aria stay
        per call-site; only the path data is shared here. -->
@@ -108,7 +117,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Let's Talk</a></li>
         <li>
-          <button class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode">
+          <button class="theme-toggle" id="themeToggle" aria-label="Switch to light mode">
             <span class="sun">☀</span>
             <span class="moon">☾</span>
             <span class="toggle-thumb"></span>
@@ -120,6 +129,12 @@
 
   <main>
     <section class="hero" id="home">
+      <!-- Ambient lighting only: no content, no interaction. Kept out of the
+           accessibility tree and out of the hit-testing path entirely. -->
+      <div class="hero-glow" aria-hidden="true">
+        <div class="hero-orb hero-orb--1"><span></span></div>
+        <div class="hero-orb hero-orb--2"><span></span></div>
+      </div>
       <div class="hero-container">
         <div class="hero-image-wrap">
           <img src="assets/image/rikesh-image.png" alt="Rikesh Sharma Image" class="rikesh-image">

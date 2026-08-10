@@ -1,7 +1,25 @@
+/*
+  The box-shadow is not a shadow — it's the footer's own colour, extended past
+  the end of the document.
+
+  Mobile browsers rubber-band past the end of a page, and the strip they
+  expose is painted with the *canvas* colour. The canvas takes its colour from
+  `body`, which is the page background (white in light mode) — not from the
+  footer. So scrolling to the bottom and pulling revealed a white band beneath
+  a near-black footer, which reads as the footer failing to reach the bottom
+  of the page.
+
+  A zero-blur shadow with equal offset and spread paints a solid rectangle
+  that starts exactly at the footer's top edge (offset cancels spread there)
+  and runs 2x the spread below it. Because box-shadow neither participates in
+  layout nor contributes scrollable overflow, this adds no height at all — the
+  strip is simply already the right colour on the rare occasions it's visible.
+*/
 .site-footer {
   margin-top: 5rem;
   padding: 4.5rem 1.5rem 2rem;
   background: var(--color-footer-bg);
+  box-shadow: 0 25vh 0 25vh var(--color-footer-bg);
   position: relative;
 }
 

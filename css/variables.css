@@ -72,25 +72,61 @@
   /* Dark-mode values live in css/themes/dark.css, as overrides of the
      semantic tokens above rather than a parallel set of names. */
 
+  /*
+    Hero ambient glow. Each orb derives its own alpha from this base, and does
+    so *on the orb element* rather than via an alias declared here — a `var()`
+    resolved at :root computes against the light value and inherits down as a
+    fixed number, so the dark-mode override (which lands on `body`) would
+    never reach it.
+  */
+  /* Peak alpha at the orb's centre. Terracotta at 0.14 over white blends to
+     #F7E6E4 — effectively invisible; 0.34 lands on #ECC4BD, a warm blush that
+     reads as light without becoming a shape. */
+  --hero-glow-alpha-base: 0.34;
+  /* Amber rather than the blush this started as: a pale tint over white is
+     barely distinguishable from white, so the second orb contributed nothing.
+     Warmer and more saturated gives it a hue of its own against the
+     terracotta of the first, which is what makes the two read as depth. */
+  --color-glow-secondary-rgb: 222, 145, 80;
+
   /* Semantic */
   --color-error: #d6473f;
   --color-error-rgb: 214, 71, 63;
   --color-success: #2f8f4e;
 
   /* Footer (deliberately dark surface in both themes) */
+  /* Themed in css/themes/dark.css like any other token, rather than via a
+     second `-dark-mode` name plus a component override. */
   --color-footer-bg: #181410;
-  --color-footer-bg-dark-mode: #100f0d;
   --color-footer-cream: #FFF7ED;
   --color-footer-cream-rgb: 255, 247, 237;
   --color-footer-muted: #a39a90;
   --color-footer-copyright: #7d7469;
   --color-footer-pill-text: #e8a897;
 
-  /* Theme toggle */
-  --color-toggle-track-light: #f3d767;
-  --color-toggle-sun: #e89b00;
-  --color-toggle-moon: #f8fafc;
+  /*
+    Theme toggle.
+
+    The thumb slides across the track and parks over one of the two glyphs —
+    the sun in light mode, the moon in dark. So each glyph is coloured for the
+    surface it actually sits on in that theme, which is *not* the same surface
+    in both. Colouring them against the track (as this once did) left whichever
+    one the thumb covered at ~1.1:1 — invisible.
+
+      light: sun sits on the white thumb, moon sits on the yellow track
+      dark:  moon sits on the cream thumb, sun sits on the dark track
+
+    The opacities encode which side is currently active, and swap with the
+    theme for the same reason.
+  */
+  --color-toggle-track: #f3d767;
   --color-toggle-thumb: #ffffff;
+  /* on the white thumb - 4.5:1 */
+  --color-toggle-sun: #B4610A;
+  /* on the yellow track, at 0.75 - 4.1:1 */
+  --color-toggle-moon: #4A3C12;
+  --toggle-sun-opacity: 1;
+  --toggle-moon-opacity: 0.75;
   --color-toggle-envelope-bg: #fff9f7;
 
   /* Radius scale */

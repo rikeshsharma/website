@@ -75,6 +75,29 @@ body.dark-mode {
   --color-success: #5FD68A;
 
   --color-toggle-envelope-bg: #241E1B;
+
+  /* Toggle. The thumb is parked on the right here, so the roles invert: the
+     moon is the one sitting on the thumb and the sun is on the bare track. */
+  --color-toggle-track: #2A2523;
+  --color-toggle-thumb: #F7F1EC;
+  /* on the dark track, at 0.75 - 5.8:1 */
+  --color-toggle-sun: #F5C24D;
+  /* on the cream thumb - 11.2:1 */
+  --color-toggle-moon: #3A322E;
+  --toggle-sun-opacity: 0.75;
+  --toggle-moon-opacity: 1;
+
+  /* The footer is a dark surface in both themes; here it drops a step below
+     the page so it still reads as a distinct band. */
+  --color-footer-bg: #100F0D;
+
+  /*
+    The hero glow carries further on a near-black ground than on white, so it
+    needs more alpha to be visible at all — but the secondary tone drops to a
+    deeper amber, because the light blush reads as washed-out pink down here.
+  */
+  --hero-glow-alpha-base: 0.24;
+  --color-glow-secondary-rgb: 226, 146, 104;
 }
 
 /* --- Genuine exceptions ------------------------------------------------- */
@@ -97,29 +120,10 @@ body.dark-mode .timeline-logo {
   background: var(--color-white);
 }
 
-/* Theme toggle: the track is a physical switch housing, not a surface, so it
-   gets its own values rather than following --color-surface. */
-body.dark-mode .theme-toggle {
-  background: #2A2523;
-}
-
+/* The one part of the toggle that isn't a colour: which end the thumb parks
+   at. Everything else about it is themed through the tokens above. */
 body.dark-mode .toggle-thumb {
   transform: translateX(34px);
-  background: #F7F1EC;
-}
-
-body.dark-mode .sun {
-  opacity: 0.45;
-}
-
-body.dark-mode .moon {
-  opacity: 1;
-}
-
-/* The footer is a deliberately dark surface in both themes; in dark mode it
-   goes a step deeper than the page so it still reads as a distinct band. */
-body.dark-mode .site-footer {
-  background: var(--color-footer-bg-dark-mode);
 }
 
 /* Re-stated for dark mode: the nav's generic link color matches the

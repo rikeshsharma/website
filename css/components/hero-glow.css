@@ -1,0 +1,194 @@
+/*
+  Ambient hero glow — soft lights that trail the pointer.
+
+  Two rules shape the whole thing:
+
+  1. Only `transform` is ever animated. The obvious implementation moves a
+     `radial-gradient`'s position, but gradient position is a paint property:
+     it would repaint a viewport-sized layer every frame. Instead each orb is
+     a fixed-size element whose gradient is rasterized once, and only its
+     transform changes — which the compositor handles without repainting.
+     There is no `filter: blur()` either; a gradient that fades to transparent
+     is already soft, and blur would force a re-raster on every move.
+
+  2. It never becomes chrome. `pointer-events: none` means it can't intercept
+     a click on the photo or the social links, and the alpha values are low
+     enough that the glow reads as lighting rather than as an object.
+
+  At rest the orbs sit in a deliberate off-centre composition, so the section
+  still looks intentional with no pointer at all — on touch, and before the
+  mouse has moved.
+*/
+
+.hero {
+  position: relative;
+  /* Contain the stacking context so the orbs can't slide under or over
+     anything outside the hero. */
+  isolation: isolate;
+}
+
+/*
+  The layer bleeds upward past the top of the hero, behind the header.
+
+  Clipped at `inset: 0` the orbs ended exactly on the hero's top edge — which
+  is precisely where the header ends — so the light terminated in a hard
+  horizontal line across the full width of the page. The eye reads that edge
+  as the *effect* stopping, not as a container boundary.
+
+  Letting it run up under the header removes the edge entirely: the nav is a
+  translucent material, so the glow diffuses through its blur instead of
+  hitting a wall, and whatever is left is cut off by the top of the viewport,
+  which never reads as a seam. The bottom gets a soft mask for the same
+  reason, so the light dissolves into the section divider rather than ending
+  on a line there too.
+*/
+.hero-glow {
+  --hero-glow-bleed: 240px;
+
+  position: absolute;
+  top: calc(var(--hero-glow-bleed) * -1);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 calc(100% - 180px), transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0, #000 calc(100% - 180px), transparent 100%);
+  /* Never let decoration eat an interaction. */
+  pointer-events: none;
+}
+
+/* Content sits above the light. */
+.hero-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* The section divider is a non-positioned child, so it would otherwise paint
+   beneath the positioned glow layer. */
+.hero::after {
+  position: relative;
+  z-index: 1;
+}
+
+/*
+  The positioner. JS writes `transform` here and nothing else, so its only job
+  is to be moved. `--orb-depth` is how far this orb travels relative to the
+  pointer — the nearer light tracks more, the farther one lags behind, which
+  is what produces the parallax.
+*/
+.hero-orb {
+  position: absolute;
+  will-change: transform;
+}
+
+/*
+  The visible light. Kept as a separate element from the positioner because
+  the two have different owners: JS drives the parent's transform, the drift
+  animation below drives this one's. Sharing one element would mean the
+  keyframes and the pointer fighting over the same property.
+*/
+.hero-orb > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-circle);
+  /*
+    `--orb-alpha` and `--hero-glow-rgb` are both set per-orb below, on the
+    element — so they resolve against whatever the active theme put on
+    `body`, which an alias declared at :root would not.
+
+    The middle stop sits above where a straight two-stop ramp would put it
+    (0.7 of peak at 40%, against ~0.6 linear). With only two stops the orb is
+    at full strength at a single point and already half-faded a third of the
+    way out, which reads as weak no matter how high the peak goes. Widening
+    the core is what gives it presence; raising the peak alone just makes the
+    centre hot.
+  */
+  background: radial-gradient(
+    circle closest-side,
+    rgba(var(--hero-glow-rgb), var(--orb-alpha)) 0%,
+    rgba(var(--hero-glow-rgb), calc(var(--orb-alpha) * 0.7)) 40%,
+    rgba(var(--hero-glow-rgb), 0) 100%
+  );
+  animation: hero-orb-drift var(--orb-drift-duration) ease-in-out infinite alternate;
+}
+
+/*
+  Vertical placement compensates for the bleed, so each orb stays anchored to
+  a fraction of the *hero* rather than of the taller glow box. A point at
+  fraction f of the hero sits at `bleed * (1 - f) + f * 100%` of the glow —
+  without that term, adding bleed silently drags the whole composition upward.
+*/
+.hero-orb--1 {
+  --orb-depth: 0.55;
+  --hero-glow-rgb: var(--color-brand-rgb);
+  --orb-alpha: var(--hero-glow-alpha-base);
+  --orb-drift-duration: 26s;
+  left: 34%;
+  /* 40% of the hero */
+  top: calc(var(--hero-glow-bleed) * 0.6 + 40%);
+  width: 720px;
+  height: 720px;
+  margin: -360px 0 0 -360px;
+}
+
+.hero-orb--2 {
+  --orb-depth: 0.28;
+  --hero-glow-rgb: var(--color-glow-secondary-rgb);
+  --orb-alpha: calc(var(--hero-glow-alpha-base) * 0.78);
+  --orb-drift-duration: 34s;
+  left: 66%;
+  /* 62% of the hero */
+  top: calc(var(--hero-glow-bleed) * 0.38 + 62%);
+  width: 540px;
+  height: 540px;
+  margin: -270px 0 0 -270px;
+}
+
+/*
+  A very slow breath so the section isn't dead without a pointer. The period is
+  deliberately far outside the ~5s band that reads as a pulse — at 26–34s per
+  half-cycle it's below conscious notice, which is the point.
+*/
+@keyframes hero-orb-drift {
+  from {
+    transform: translate3d(-4%, -3%, 0) scale(0.94);
+  }
+  to {
+    transform: translate3d(4%, 3%, 0) scale(1.06);
+  }
+}
+
+@media (max-width: 860px) {
+  .hero-glow {
+    /* The header is shorter here, so less bleed is needed to clear it. */
+    --hero-glow-bleed: 170px;
+  }
+
+  /* Smaller viewport, smaller lights — at desktop sizes they'd wash out the
+     whole section rather than pooling in it. */
+  .hero-orb--1 {
+    width: 480px;
+    height: 480px;
+    margin: -240px 0 0 -240px;
+  }
+
+  .hero-orb--2 {
+    width: 360px;
+    height: 360px;
+    margin: -180px 0 0 -180px;
+  }
+}
+
+/*
+  Reduced motion: keep the light, drop the movement. The composition is the
+  part that fixes the empty background; the drift and the pointer-follow are
+  the parts that could bother someone. js/components/hero-glow.js bails out
+  under the same query, so the transform stays wherever CSS put it.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .hero-orb > span {
+    animation: none;
+  }
+}

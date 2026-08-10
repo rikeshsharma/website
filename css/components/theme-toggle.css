@@ -7,7 +7,7 @@
   padding: 0;
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--color-toggle-track-light);
+  background: var(--color-toggle-track);
   cursor: pointer;
   /* Easing a theme change rather than cutting to it: an abrupt full-page
      brightness jump is one of the things reduced motion exists to avoid. */
@@ -23,6 +23,10 @@ body.dark-mode .theme-toggle.is-pressed .toggle-thumb {
   transform: translateX(34px) scaleX(0.88);
 }
 
+/*
+  Above the thumb, deliberately — the glyph on the active side reads *on* the
+  thumb rather than being hidden behind it.
+*/
 .sun,
 .moon {
   position: absolute;
@@ -31,18 +35,22 @@ body.dark-mode .theme-toggle.is-pressed .toggle-thumb {
   transform: translateY(-50%);
   font-size: 16px;
   line-height: 1;
-  transition: opacity var(--response-fast) var(--ease-enter);
+  /* Colour is themed too, so it has to ease alongside the track and thumb —
+     otherwise the glyphs snap while everything around them slides. */
+  transition: opacity var(--response) var(--ease-enter),
+    color var(--response) var(--ease-enter);
 }
 
 .sun {
   left: 9px;
   color: var(--color-toggle-sun);
+  opacity: var(--toggle-sun-opacity);
 }
 
 .moon {
   right: 9px;
   color: var(--color-toggle-moon);
-  opacity: 0.45;
+  opacity: var(--toggle-moon-opacity);
 }
 
 .toggle-thumb {

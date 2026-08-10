@@ -9,7 +9,18 @@
   border-radius: var(--radius-pill);
   background: var(--color-toggle-track-light);
   cursor: pointer;
-  transition: background 0.3s ease;
+  /* Easing a theme change rather than cutting to it: an abrupt full-page
+     brightness jump is one of the things reduced motion exists to avoid. */
+  transition: background var(--response) var(--ease-enter);
+}
+
+.theme-toggle.is-pressed .toggle-thumb {
+  /* The thumb narrows under the press, the way a physical switch gives. */
+  transform: scaleX(0.88);
+}
+
+body.dark-mode .theme-toggle.is-pressed .toggle-thumb {
+  transform: translateX(34px) scaleX(0.88);
 }
 
 .sun,
@@ -20,7 +31,7 @@
   transform: translateY(-50%);
   font-size: 16px;
   line-height: 1;
-  transition: opacity 0.25s ease;
+  transition: opacity var(--response-fast) var(--ease-enter);
 }
 
 .sun {
@@ -43,5 +54,8 @@
   border-radius: var(--radius-circle);
   background: var(--color-toggle-thumb);
   box-shadow: 0 3px 8px rgba(var(--color-black-rgb), 0.18);
-  transition: transform 0.3s ease, background 0.3s ease;
+  /* Critically damped: a click carries no momentum into the slide, so
+     overshoot here would be decoration rather than physics. */
+  transition: transform var(--response) var(--ease-enter),
+    background var(--response) var(--ease-enter);
 }

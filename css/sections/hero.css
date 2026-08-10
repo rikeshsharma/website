@@ -46,10 +46,16 @@
   max-width: 480px;
 }
 
+/*
+  Display type. Letters read too far apart as they grow, so the largest text
+  on the page gets the most negative tracking and the tightest leading — see
+  css/base/typography.css for the scale.
+*/
 .hero-content h1 {
   margin: 0;
-  font-size: 3rem;
-  line-height: 1.1;
+  font-size: clamp(2.25rem, 6vw, 3rem);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
   font-weight: 800;
   color: var(--color-heading);
 }
@@ -87,7 +93,10 @@
   border-radius: var(--radius-circle);
   border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: background-color var(--response-fast) var(--ease-exit),
+    color var(--response-fast) var(--ease-exit),
+    border-color var(--response-fast) var(--ease-exit),
+    transform var(--response-fast) var(--ease-exit);
 }
 
 .social-link svg {
@@ -99,7 +108,18 @@
   background-color: var(--color-brand);
   border-color: var(--color-brand);
   color: var(--color-white);
-  transform: translateY(-2px);
+  transform: translateY(var(--motion-lift));
+  transition: background-color var(--response-fast) var(--ease-enter),
+    color var(--response-fast) var(--ease-enter),
+    border-color var(--response-fast) var(--ease-enter),
+    transform var(--response-fast) var(--ease-enter);
+}
+
+/* Pressed beats hovered: the lift gives way to a push-in, immediately. */
+.social-link.is-pressed,
+.social-link.is-pressed:hover {
+  transform: translateY(0) scale(var(--press-scale));
+  transition: transform var(--response-instant) var(--ease-enter);
 }
 
 @media (max-width: 860px) {

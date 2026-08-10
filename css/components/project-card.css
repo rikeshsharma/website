@@ -8,21 +8,36 @@
   border: 1px solid var(--color-border);
   background: var(--color-white);
   overflow: hidden;
-  cursor: default;
+  cursor: pointer;
   opacity: 0;
-  transform: translateY(18px);
+  /*
+    The reveal moves the card with `translate` and the interaction scales it
+    with `transform`, deliberately — they are separate properties that
+    compose, so neither has to win. Sharing one `transform` meant the reveal
+    rule (three classes) outranked `:hover` (two) and silently killed the
+    hover scale the moment the grid came into view.
+  */
+  translate: 0 var(--motion-shift);
+  /*
+    Two different jobs, so two different responses: the reveal is slow and
+    staggered because it's ambient, the hover/press reaction is fast because
+    a hand is waiting on it. `--ease-exit` is the cubic-bezier mirror of
+    `--ease-enter`, so a card that grew on hover shrinks back along exactly
+    the path it grew on.
+  */
   transition:
-    transform 300ms ease-in-out,
-    box-shadow 300ms ease-in-out,
-    border-color 300ms ease-in-out,
-    opacity 600ms ease,
-    translate 600ms ease;
-  transition-delay: 0ms, 0ms, 0ms, calc(var(--i, 0) * 90ms), calc(var(--i, 0) * 90ms);
+    transform var(--response) var(--ease-exit),
+    box-shadow var(--response) var(--ease-exit),
+    border-color var(--response) var(--ease-exit),
+    opacity var(--response-slow) var(--ease-enter),
+    translate var(--response-slow) var(--ease-enter);
+  transition-delay: 0ms, 0ms, 0ms,
+    calc(var(--i, 0) * 90ms), calc(var(--i, 0) * 90ms);
 }
 
 .projects-grid.in-view .project-card {
   opacity: 1;
-  transform: translateY(0);
+  translate: 0 0;
 }
 
 .project-card:hover,
@@ -32,6 +47,23 @@
   z-index: 2;
   border-color: rgba(var(--color-brand-rgb), 0.35);
   box-shadow: 0 24px 48px rgba(var(--color-black-rgb), 0.12);
+  transition:
+    transform var(--response-fast) var(--ease-enter),
+    box-shadow var(--response-fast) var(--ease-enter),
+    border-color var(--response-fast) var(--ease-enter);
+}
+
+/*
+  The press reads as the card being pushed *in* from wherever it already is,
+  not jumping to some unrelated size — so it compounds with the hover scale
+  rather than replacing it. It also outranks the hover rules, because the
+  most recent thing the user did is the thing that should be visible.
+*/
+.project-card.is-pressed,
+.project-card.is-pressed:hover,
+.project-card.is-pressed:focus-within {
+  transform: scale(calc(1.035 * var(--press-scale)));
+  transition: transform var(--response-instant) var(--ease-enter);
 }
 
 .project-card:focus-within,
@@ -56,20 +88,25 @@
   justify-content: center;
   color: var(--color-brand);
   opacity: 0.55;
-  transition: transform 320ms ease-in-out;
+  transition: transform var(--response) var(--ease-exit);
 }
 
-.project-card-placeholder svg {
-  width: 30%;
-  height: 30%;
-  max-width: 96px;
-  max-height: 96px;
+.project-card-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit:cover;
+  object-position: center;
+}
+
+.project-card-placeholder:has(img) {
+  opacity: 1;
 }
 
 .project-card:hover .project-card-placeholder,
 .project-card:focus-within .project-card-placeholder,
 .project-card.is-open .project-card-placeholder {
   transform: scale(1.08);
+  transition: transform var(--response) var(--ease-enter);
 }
 
 .project-card-body {
@@ -106,13 +143,14 @@
 .project-card-desc-wrap {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 300ms ease-in-out;
+  transition: grid-template-rows var(--response) var(--ease-exit);
 }
 
 .project-card:hover .project-card-desc-wrap,
 .project-card:focus-within .project-card-desc-wrap,
 .project-card.is-open .project-card-desc-wrap {
   grid-template-rows: 1fr;
+  transition: grid-template-rows var(--response) var(--ease-enter);
 }
 
 .project-card-desc {
@@ -122,7 +160,7 @@
   line-height: 1.55;
   color: var(--color-text-muted);
   opacity: 0;
-  transition: opacity 250ms ease-in-out;
+  transition: opacity var(--response-fast) var(--ease-exit);
 }
 
 .project-card:hover .project-card-desc,
@@ -130,19 +168,28 @@
 .project-card.is-open .project-card-desc {
   padding-top: 10px;
   opacity: 1;
-  transition: opacity 280ms ease-in-out 60ms;
+  /* Text arrives just behind the space that opened for it, so the panel
+     reads as making room rather than the two racing each other. */
+  transition: opacity var(--response) var(--ease-enter) 60ms;
 }
 
+/*
+  Reduced motion keeps the opacity cross-fades — they carry meaning and
+  aren't vestibular — and drops only the travel and the scale. `--motion-shift`
+  and `--press-scale` already zero themselves in css/base/motion.css, so the
+  reveal and press become fades in place with no rules repeated here.
+*/
 @media (prefers-reduced-motion: reduce) {
-  .project-card,
+  .project-card:hover,
+  .project-card:focus-within,
+  .project-card.is-open,
+  .project-card.is-pressed,
+  .project-card.is-pressed:hover,
+  .project-card.is-pressed:focus-within,
   .project-card-placeholder,
-  .project-card-desc-wrap,
-  .project-card-desc {
-    transition: none;
-  }
-
-  .projects-grid .project-card {
-    opacity: 1;
+  .project-card:hover .project-card-placeholder,
+  .project-card:focus-within .project-card-placeholder,
+  .project-card.is-open .project-card-placeholder {
     transform: none;
   }
 }

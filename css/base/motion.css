@@ -1,0 +1,111 @@
+/*
+  Motion + material tokens (see SKILL.md — Apple Design).
+
+  Two ideas drive this file:
+
+  1. Springs, not durations. A spring has no fixed duration — its settle time
+     emerges from *damping* (how much it overshoots) and *response* (how fast
+     it reaches the target). CSS can't run a real spring, so each curve below
+     is the closest fixed easing to one, and the `--response-*` values are the
+     response times Apple ships (0.3–0.4s) rather than arbitrary durations.
+     Anything a finger can actually grab is animated in JS instead
+     (js/utils/motion.js), because CSS transitions can't be interrupted and
+     redirected mid-flight.
+
+  2. Reversible transitions mirror their easing. `--ease-exit` is the exact
+     cubic-bezier inverse of `--ease-enter` — reflecting the control points
+     through (0.5, 0.5) — so a panel returns along the path it arrived on.
+
+  The accessibility blocks at the bottom re-point these tokens rather than
+  disabling transitions wholesale: reduced motion means a gentler,
+  non-vestibular equivalent (cross-fade, no travel), not "no feedback".
+*/
+
+:root {
+  /* Critically damped (damping 1.0) — the default for everything. */
+  --ease-enter: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-exit: cubic-bezier(0, 0, 0.68, 0.28);
+
+  /* Same feel, more emphasis; used where an element travels a long way. */
+  --ease-enter-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-exit-emphasized: cubic-bezier(0.64, 0, 0.78, 0);
+
+  /* Under-damped (damping ~0.8). Only for motion a gesture already threw. */
+  --ease-momentum: cubic-bezier(0.34, 1.35, 0.64, 1);
+
+  /* Kept as an alias so the nav's existing var() calls keep resolving. */
+  --ease-premium: var(--ease-enter-emphasized);
+
+  /* Response, not duration — how quickly a value reaches its target. */
+  --response-instant: 100ms;
+  --response-fast: 200ms;
+  --response: 300ms;
+  --response-slow: 400ms;
+
+  /* Movement amounts, so reduced motion can zero the travel in one place
+     while the opacity half of the same transition keeps running. */
+  --motion-shift: 16px;
+  --motion-lift: -2px;
+  --press-scale: 0.97;
+
+  /* Translucent materials (§12). Bigger surfaces read as thicker, so the
+     nav pill uses the -strong pair and small chips the plain one. */
+  --material-blur: 20px;
+  --material-blur-strong: 28px;
+  --material-saturate: 180%;
+  --material-alpha: 0.72;
+  --material-alpha-strong: 0.82;
+  --material-edge-alpha: 0.4;
+  --material-border-alpha: 0.06;
+}
+
+/*
+  Kill the ~300ms tap delay everywhere. Latency is the one thing that makes
+  directness "fall off a cliff", and this is pure profit on touch devices.
+*/
+a,
+button,
+.project-card,
+.skill-chip,
+input,
+textarea,
+summary {
+  touch-action: manipulation;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    /* Cross-fade in place: the opacity half survives, the travel doesn't. */
+    --motion-shift: 0px;
+    --motion-lift: 0px;
+    --press-scale: 1;
+
+    /* Overshoot is vestibular — drop it, keep the same response. */
+    --ease-momentum: var(--ease-enter);
+
+    --response-slow: 250ms;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    /* Frostier, not see-through: raise the background, drop the blur. */
+    --material-blur: 0px;
+    --material-blur-strong: 0px;
+    --material-saturate: 100%;
+    --material-alpha: 1;
+    --material-alpha-strong: 1;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --material-blur: 0px;
+    --material-blur-strong: 0px;
+    --material-alpha: 1;
+    --material-alpha-strong: 1;
+    /* Near-solid backgrounds need a defined, contrasting border. */
+    --material-border-alpha: 0.5;
+    --material-edge-alpha: 0.8;
+  }
+}

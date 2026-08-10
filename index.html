@@ -7,6 +7,8 @@
   <link rel="icon" href="assets/brand/scopedrift-symbol.ico" sizes="16x16 32x32 48x48">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base/reset.css">
+  <link rel="stylesheet" href="css/base/motion.css">
+  <link rel="stylesheet" href="css/base/typography.css">
   <link rel="stylesheet" href="css/layout/header.css">
   <link rel="stylesheet" href="css/components/theme-toggle.css">
   <link rel="stylesheet" href="css/components/section-divider.css">
@@ -22,7 +24,11 @@
   <link rel="stylesheet" href="css/themes/dark.css">
   <script defer src="js/config/constants.js"></script>
   <script defer src="js/utils/scroll-observer.js"></script>
+  <script defer src="js/utils/motion.js"></script>
+  <script defer src="js/components/press.js"></script>
+  <script defer src="js/components/nav-scroll.js"></script>
   <script defer src="js/components/mobile-menu.js"></script>
+  <script defer src="js/components/skills-marquee.js"></script>
   <script defer src="js/components/theme-toggle.js"></script>
   <script defer src="js/components/project-cards.js"></script>
   <script defer src="js/components/contact-form.js"></script>
@@ -96,7 +102,7 @@
             </svg>
           </a>
         </li>
-        <li><a href="#carrier">Carrier</a></li>
+        <li><a href="#carrier">Career</a></li>
         <li><a href="#skill">Skills</a></li>
         <li><a href="#project">Projects</a></li>
         <li><a href="#about">About</a></li>
@@ -169,55 +175,67 @@
         <ol class="timeline">
           <li class="timeline-item">
             <div class="timeline-logo">
-              <img src="assets/image/logo-placeholder.svg" alt="Samsung Electronics logo placeholder" class="timeline-logo-img">
+              <img src="assets/image/Samsung_Orig_Wordmark_BLACK_RGB.png" alt="Samsung Electronics logo" class="timeline-logo-img samsung">
             </div>
             <div class="timeline-content">
-              <span class="timeline-year">20XX — Present</span>
+              <span class="timeline-year">2023 — Present</span>
               <h3 class="timeline-role">Software Engineer</h3>
               <p class="timeline-org">Samsung Electronics India</p>
               <p class="timeline-desc">
-                Worked on Samsung Internet across Android and PC, contributing to the
-                Extension, Navigation, Loader, Downloads, and Privacy modules.
-              </p>
+                Samsung was where I got my first deep dive into browser engineering. I learned how modern browsers work behind the
+                scenes and had the opportunity to contribute to Samsung Browser on both Android and PC, working across the
+                Extensions, Navigation, Loader, and Downloads modules while building features and tackling complex engineering problems.
+                </p>
               <div class="timeline-subsections">
                 <div class="subsection">
-                  <h4 class="subsection-title">Extension</h4>
-                  <p class="subsection-desc">Placeholder description of work on the Extension module.</p>
-                </div>
-                <div class="subsection">
                   <h4 class="subsection-title">Navigation and Loader</h4>
-                  <p class="subsection-desc">Placeholder description of work on the Navigation module.</p>
+                  <p class="subsection-desc">
+                    I contributed to Samsung Browser by working on webpage navigation and loading, with
+                    a focus on features such as Prefetching, Preloading, Back/Forward Cache (BFCache), and User-Agent handling to deliver
+                    a faster and more reliable browsing experience.
+                  </p>
                 </div>
                 <div class="subsection">
                   <h4 class="subsection-title">Downloads</h4>
-                  <p class="subsection-desc">Placeholder description of work on the Downloads module.</p>
+                  <p class="subsection-desc">
+                    I contributed to Samsung Browser by working on download management and insecure
+                    download protection
+                  </p>
+                </div>
+                <div class="subsection">
+                  <h4 class="subsection-title">Extension</h4>
+                  <p class="subsection-desc">
+                    I learned how browser extensions interact with the browser internals. I worked on Samsung
+                    Browser by developing extension APIs, building features across the native and extension layers, and
+                    integrating AI-powered capabilities to enhance the browsing experience.
+                  </p>
                 </div>
               </div>
             </div>
           </li>
           <li class="timeline-item">
             <div class="timeline-logo">
-              <img src="assets/image/logo-placeholder.svg" alt="Internship company logo placeholder" class="timeline-logo-img">
+              <img src="assets/image/nerdnerdy_logo.png" alt="NerdNerdy Internship company logo" class="timeline-logo-img">
             </div>
             <div class="timeline-content">
-              <span class="timeline-year">20XX</span>
+              <span class="timeline-year">2022</span>
               <h3 class="timeline-role">Software Engineering Intern</h3>
-              <p class="timeline-org">Company Name Placeholder</p>
+              <p class="timeline-org">NerdNerdy</p>
               <p class="timeline-desc">
-                Placeholder description of internship responsibilities, projects, and technologies used.
+                This is where I designed and implemented an online platform for Teachers, Doctors, Parents and Children with Special Needs.
               </p>
             </div>
           </li>
           <li class="timeline-item">
             <div class="timeline-logo">
-              <img src="assets/image/logo-placeholder.svg" alt="College logo placeholder" class="timeline-logo-img">
+              <img src="assets/image/redlogoR.png" alt="IIT Kanpur RedLogo" class="timeline-logo-img">
             </div>
             <div class="timeline-content">
-              <span class="timeline-year">20XX — 20XX</span>
-              <h3 class="timeline-role">Degree Name Placeholder</h3>
-              <p class="timeline-org">College / University Name Placeholder</p>
+              <span class="timeline-year">2018 — 2023</span>
+              <h3 class="timeline-role">Computer Science and Mechanical Engineering</h3>
+              <p class="timeline-org">Indian Institute of Technology Kanpur</p>
               <p class="timeline-desc">
-                Placeholder description of your field of study, relevant coursework, and achievements.
+                B-Tech at IIT Kanpur with double major in Computer Science and Mechanical Engineering. This is where I got passionated about engineering and solving complex problems both at Hardware and Software level.
               </p>
             </div>
           </li>
@@ -345,9 +363,7 @@
           <article class="project-card project-card--1" style="--i: 0;" tabindex="0">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 5v14"/><path d="M6 5v14"/><path d="M9 5v14"/><path d="M13 5v14"/><path d="M15 5v14"/><path d="M18 5v14"/><path d="M21 5v14"/>
-                </svg>
+                <img src="assets/image/campus-entry-exit.png" alt="campus automated entry exit system icon">
               </div>
             </div>
             <div class="project-card-body">
@@ -362,9 +378,7 @@
           <article class="project-card project-card--2" style="--i: 1;" tabindex="0">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M8 4L2 12l6 8"/><path d="M16 4l6 8-6 8"/>
-                </svg>
+                <img src="assets/image/java-compiler.png" alt="java compiler project icon">
               </div>
             </div>
             <div class="project-card-body">
@@ -379,10 +393,7 @@
           <article class="project-card project-card--3" style="--i: 2;" tabindex="0">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 16v-3a2 2 0 0 1 2-2h.5l1.8-4.2A2 2 0 0 1 9.1 5.5h5.8a2 2 0 0 1 1.8 1.3L18.5 11H19a2 2 0 0 1 2 2v3"/>
-                  <path d="M3 16h18"/><circle cx="7.5" cy="16.5" r="1.7"/><circle cx="16.5" cy="16.5" r="1.7"/>
-                </svg>
+                <img src="assets/image/self-driving-car.png" alt="self driving car icon">
               </div>
             </div>
             <div class="project-card-body">
@@ -397,10 +408,7 @@
           <article class="project-card project-card--4" style="--i: 3;" tabindex="0">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="9" cy="9" r="1.4"/>
-                  <path d="M5 17l4.5-4.5a1.5 1.5 0 0 1 2 0L15 16l1.2-1.2a1.5 1.5 0 0 1 2 0L20 17"/>
-                </svg>
+                <img src="assets/image/pdf-images.png" alt="pdf to images icon">
               </div>
             </div>
             <div class="project-card-body">
@@ -415,9 +423,7 @@
           <article class="project-card project-card--5" style="--i: 4;" tabindex="0">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/>
-                </svg>
+                <img src="assets/image/sudoku.png" alt="sudoku icon">
               </div>
             </div>
             <div class="project-card-body">
@@ -432,9 +438,7 @@
           <article class="project-card project-card--6" style="--i: 5;" tabindex="0">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M2 13c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M2 18c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>
-                </svg>
+                <img src="assets/image/cfd-simulation.png" alt=" cfd simulation project icon">
               </div>
             </div>
             <div class="project-card-body">

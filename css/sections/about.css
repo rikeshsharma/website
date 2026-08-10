@@ -100,7 +100,8 @@
 .about-header,
 .about-summary,
 .about-facts {
-  transition: opacity 350ms ease, transform 350ms ease;
+  transition: opacity var(--response-slow) var(--ease-enter),
+    transform var(--response-slow) var(--ease-enter);
 }
 
 .about.in-view .about-header {

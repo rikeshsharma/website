@@ -1,10 +1,15 @@
+/* Font family, leading, and tracking live in css/base/typography.css. */
+
 body {
   margin: 0;
   padding: 0;
   background-color: var(--color-white);
-  font-family: sans-serif;
-  line-height: 1.4;
   color: var(--color-body);
+  /* Ease the theme switch instead of cutting to it — a full-viewport
+     brightness jump is jarring, and this is the largest surface that makes
+     it. Kept even under reduced motion: a color cross-fade is the gentler
+     equivalent the setting asks for, not the thing it's protecting against. */
+  transition: background-color var(--response) var(--ease-enter);
 }
 
 @media (prefers-reduced-motion: no-preference) {

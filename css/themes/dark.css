@@ -22,12 +22,40 @@ body.dark-mode .logo-inner {
 }
 
 body.dark-mode header nav ul {
-  background: rgba(var(--color-dark-slate-rgb), 0.8);
+  background: rgba(var(--color-dark-slate-rgb), var(--material-alpha-strong));
+  border-top-color: rgba(var(--color-white-rgb), calc(var(--material-edge-alpha) * 0.5));
   border-bottom-color: rgba(var(--color-dark-heading-rgb), 0.15);
 }
 
+body.dark-mode header nav ul li a {
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode header nav ul li a:hover {
+  background-color: rgba(var(--color-dark-heading-rgb), 0.1);
+  color: var(--color-dark-heading);
+}
+
+body.dark-mode header nav ul li a.is-pressed {
+  background-color: rgba(var(--color-dark-heading-rgb), 0.14);
+}
+
+/* Re-stated for dark mode: the generic dark link color above matches the
+   light-mode `[aria-current]` rule on specificity and would otherwise win on
+   order, quietly dropping the "you are here" marker. */
+body.dark-mode header nav ul li a[aria-current="true"] {
+  color: var(--color-brand);
+  background-color: rgba(var(--color-brand-rgb), 0.14);
+}
+
+body.dark-mode header nav ul li a[aria-current="true"]:hover,
+body.dark-mode header nav ul li a[aria-current="true"].is-pressed {
+  color: var(--color-brand);
+  background-color: rgba(var(--color-brand-rgb), 0.24);
+}
+
 body.dark-mode .nav-toggle {
-  background: rgba(var(--color-dark-slate-rgb), 0.8);
+  background: rgba(var(--color-dark-slate-rgb), var(--material-alpha-strong));
 }
 
 body.dark-mode .nav-toggle-bar {

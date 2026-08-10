@@ -40,6 +40,14 @@ header nav .logo:hover {
   color: var(--color-black);
 }
 
+/*
+  The nav is a translucent material floating over the content, not an opaque
+  strip that eats a fixed band of the page — content scrolls underneath it and
+  stays partly visible, which is what tells you the bar is a layer rather than
+  a wall. Blur, saturation and background opacity come from the shared
+  material tokens so `prefers-reduced-transparency` and `prefers-contrast` can
+  turn the whole thing solid in one place (css/base/motion.css).
+*/
 header nav ul {
   list-style: none;
   margin: 0;
@@ -50,26 +58,67 @@ header nav ul {
   border: 0px solid var(--color-border);
   border-radius: var(--radius-pill);
   box-shadow: 0 8px 24px rgba(var(--color-black-rgb), 0.16);
-  background: rgba(var(--color-white-rgb), 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(var(--color-black-rgb), 0.06);
+  background: rgba(var(--color-white-rgb), var(--material-alpha-strong));
+  backdrop-filter: blur(var(--material-blur-strong)) saturate(var(--material-saturate));
+  -webkit-backdrop-filter: blur(var(--material-blur-strong)) saturate(var(--material-saturate));
+  /* A bright top edge reads as light catching the near edge of the material. */
+  border-top: 1px solid rgba(var(--color-white-rgb), var(--material-edge-alpha));
+  border-bottom: 1px solid rgba(var(--color-black-rgb), var(--material-border-alpha));
+  transition: box-shadow var(--response) var(--ease-enter);
+}
+
+/*
+  Scroll edge effect. Rather than a permanent hard divider, the material only
+  deepens once there is actually content passing beneath it — separation
+  appears exactly when it's needed and not before.
+*/
+header.is-scrolled nav ul {
+  box-shadow: 0 12px 32px rgba(var(--color-black-rgb), 0.2);
 }
 
 header nav ul li a {
   display: inline-block;
-  color: var(--color-text-secondary);
+  color: var(--color-body);
   text-decoration: none;
   font-size: 0.95rem;
   padding: 0.4rem 1rem;
   border-radius: var(--radius-pill);
   white-space: nowrap;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color var(--response-fast) var(--ease-enter),
+    color var(--response-fast) var(--ease-enter),
+    transform var(--response-instant) var(--ease-enter);
 }
 
 header nav ul li a:hover {
   background-color: var(--color-surface-hover);
   color: var(--color-black);
+}
+
+/* Feedback lands on the press, not on release (see js/components/press.js). */
+header nav ul li a.is-pressed {
+  transform: scale(var(--press-scale));
+  background-color: var(--color-surface-hover);
+}
+
+/*
+  Wayfinding: "where am I" answered without the user asking. Set from the
+  scroll spy in js/components/nav-scroll.js.
+*/
+header nav ul li a[aria-current="true"] {
+  color: var(--color-brand);
+  background-color: rgba(var(--color-brand-rgb), 0.1);
+}
+
+/*
+  `[aria-current]` and `:hover` tie on specificity, so without this the
+  current item would go completely inert under the pointer — the one item on
+  the bar that gave no feedback. It keeps its identity colour and deepens
+  instead.
+*/
+header nav ul li a[aria-current="true"]:hover,
+header nav ul li a[aria-current="true"].is-pressed {
+  color: var(--color-brand);
+  background-color: rgba(var(--color-brand-rgb), 0.2);
 }
 
 header nav ul li a.nav-link-external {
@@ -93,9 +142,16 @@ header nav ul li a.nav-link-external {
   padding: 0;
   border: none;
   border-radius: var(--radius-pill);
-  background: rgba(var(--color-white-rgb), 0.8);
+  background: rgba(var(--color-white-rgb), var(--material-alpha-strong));
+  backdrop-filter: blur(var(--material-blur)) saturate(var(--material-saturate));
+  -webkit-backdrop-filter: blur(var(--material-blur)) saturate(var(--material-saturate));
   box-shadow: 0 8px 24px rgba(var(--color-black-rgb), 0.16);
   cursor: pointer;
+  transition: transform var(--response-instant) var(--ease-enter);
+}
+
+.nav-toggle.is-pressed {
+  transform: scale(var(--press-scale));
 }
 
 .nav-toggle-bar {
@@ -127,7 +183,6 @@ header nav ul li a.nav-link-external {
 @media (max-width: 960px) {
   header nav {
     padding: 1.5rem 1.25rem;
-    --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
     --nav-icon-duration: 200ms;
     --nav-icon-close-delay: 200ms;
     --nav-container-open-duration: 280ms;
@@ -173,6 +228,20 @@ header nav ul li a.nav-link-external {
     transition: opacity var(--nav-container-open-duration) var(--ease-premium),
       transform var(--nav-container-open-duration) var(--ease-premium),
       visibility 0s linear 0s;
+    /* The open sheet owns vertical drags — they're the dismiss gesture, so
+       the browser must not consume them as page scroll first. */
+    touch-action: none;
+  }
+
+  /*
+    While the panel is under a finger — or coasting on the velocity that
+    finger let go of — nothing sits between the gesture and the pixels. JS
+    writes the transform frame by frame; a CSS transition on top of that would
+    interpolate toward each frame's value and lag the whole way.
+  */
+  header nav ul.is-dragging,
+  header nav ul.is-animating {
+    transition: none;
   }
 
   header nav ul li {

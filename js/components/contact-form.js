@@ -34,15 +34,37 @@
   const contactHistoryEmail = document.getElementById("contactHistoryEmail");
   const contactHistoryMessage = document.getElementById("contactHistoryMessage");
 
+  /*
+    `hidden` and the enter/exit transition have to be sequenced by hand:
+    `display: none` can't be transitioned out of, so the element is un-hidden
+    a frame before it animates in, and stays in the tree until its exit
+    finishes. Kept in sync with the transition response in
+    css/sections/contact.css.
+  */
+  const POPOVER_EXIT_MS = 200;
+  let popoverExitTimer = null;
+
   const closeHistoryPopover = () => {
-    contactHistoryPopover.hidden = true;
+    if (contactHistoryPopover.hidden) return;
+    contactHistoryPopover.classList.remove("is-open");
     contactHistoryToggle.setAttribute("aria-expanded", "false");
+    popoverExitTimer = window.setTimeout(() => {
+      contactHistoryPopover.hidden = true;
+    }, POPOVER_EXIT_MS);
   };
 
   const openHistoryPopover = () => {
+    window.clearTimeout(popoverExitTimer);
     contactHistoryPopover.hidden = false;
+    /* Read a layout value to flush the un-hidden state, so the browser has a
+       closed frame to animate *from* rather than starting at the open one. */
+    void contactHistoryPopover.offsetWidth;
+    contactHistoryPopover.classList.add("is-open");
     contactHistoryToggle.setAttribute("aria-expanded", "true");
   };
+
+  const isHistoryPopoverOpen = () =>
+    contactHistoryPopover.classList.contains("is-open");
 
   const readContactHistory = () => {
     try {
@@ -76,10 +98,10 @@
   renderContactHistory(readContactHistory());
 
   contactHistoryToggle.addEventListener("click", () => {
-    if (contactHistoryPopover.hidden) {
-      openHistoryPopover();
-    } else {
+    if (isHistoryPopoverOpen()) {
       closeHistoryPopover();
+    } else {
+      openHistoryPopover();
     }
   });
 

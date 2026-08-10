@@ -1,0 +1,55 @@
+/*
+  Type foundations (see SKILL.md §15 — optical sizing, tracking, leading).
+
+  The rule that drives this file: tracking and leading are *size-specific*.
+  A single `letter-spacing` value is wrong somewhere — large text reads too
+  loose and needs negative tracking, small text needs a touch of positive
+  tracking to stay legible. Leading runs the other way: tight on display
+  sizes, looser on body copy.
+
+  Only the scale and the body defaults live here. Each token is applied next
+  to the font-size it belongs with, in the section that owns that element,
+  so size and tracking stay visibly paired.
+
+  The stack is the platform's system font, which already ships optical
+  sizing, per-size tracking tables, and legibility tuning that a webfont
+  would have to re-earn — and costs no network request.
+*/
+
+:root {
+  --font-system: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+
+  /* Tracking, largest (tightest) to smallest (loosest). */
+  --tracking-display: -0.03em;
+  --tracking-heading: -0.02em;
+  --tracking-title: -0.01em;
+  --tracking-body: 0em;
+  --tracking-label: 0.06em;
+
+  /* Leading, inverse to size. */
+  --leading-display: 1.05;
+  --leading-heading: 1.15;
+  --leading-title: 1.25;
+  --leading-body: 1.6;
+  --leading-relaxed: 1.8;
+}
+
+body {
+  font-family: var(--font-system);
+  font-optical-sizing: auto;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+  Text sitting on a translucent material needs vibrancy, not flat gray:
+  higher contrast, slightly heavier weight, a small tracking bump. Flat
+  secondary gray goes muddy the moment the page scrolls underneath it.
+*/
+header nav ul li a {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}

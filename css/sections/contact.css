@@ -146,7 +146,22 @@
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(var(--color-brand-rgb), 0.24);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  transition: transform var(--response-fast) var(--ease-exit),
+    box-shadow var(--response-fast) var(--ease-exit),
+    background-color var(--response-fast) var(--ease-exit);
+}
+
+/*
+  The primary action on the page — it acknowledges the press itself, on
+  pointer-down, rather than waiting for the click to resolve and the form to
+  validate. Waiting is what makes a button feel dead.
+*/
+.contact-submit.is-pressed,
+.contact-submit.is-pressed:hover {
+  transform: scale(var(--press-scale));
+  box-shadow: 0 4px 12px rgba(var(--color-brand-rgb), 0.28);
+  transition: transform var(--response-instant) var(--ease-enter),
+    box-shadow var(--response-instant) var(--ease-enter);
 }
 
 /* Previous-message pill */
@@ -228,7 +243,20 @@
   transform: rotateX(180deg);
 }
 
+/*
+  The popover grows out of the pill that opened it (see SKILL.md §7). Scaling
+  from its own centre would leave the panel floating with no visible cause;
+  anchoring `transform-origin` to the trigger makes the relationship between
+  button and content obvious without a word of explanation.
+
+  It also leaves along the path it arrived on — `--ease-exit` is the exact
+  cubic-bezier mirror of `--ease-enter` — so the return traces the outbound.
+
+  `--popover-x` keeps the horizontal placement (0 here, centred on mobile)
+  out of the animated part of the transform, so the two never collide.
+*/
 .contact-history-popover {
+  --popover-x: 0px;
   position: absolute;
   bottom: calc(100% + 0.75rem);
   left: 0;
@@ -240,6 +268,18 @@
   border: 1px solid var(--color-border);
   box-shadow: 0 16px 36px rgba(var(--color-black-rgb), 0.14);
   z-index: 5;
+  transform-origin: bottom left;
+  opacity: 0;
+  transform: translate(var(--popover-x), 6px) scale(0.94);
+  transition: opacity var(--response-fast) var(--ease-exit),
+    transform var(--response-fast) var(--ease-exit);
+}
+
+.contact-history-popover.is-open {
+  opacity: 1;
+  transform: translate(var(--popover-x), 0) scale(1);
+  transition: opacity var(--response) var(--ease-enter),
+    transform var(--response) var(--ease-enter);
 }
 
 .contact-history-popover-title {
@@ -307,6 +347,9 @@
   transform: scale(1.02);
   box-shadow: 0 12px 26px rgba(var(--color-brand-rgb), 0.32);
   background: var(--color-brand-hover);
+  transition: transform var(--response-fast) var(--ease-enter),
+    box-shadow var(--response-fast) var(--ease-enter),
+    background-color var(--response-fast) var(--ease-enter);
 }
 
 .contact-submit:focus-visible {
@@ -442,7 +485,8 @@
 .contact-header,
 .contact-form,
 .contact-panel {
-  transition: opacity 400ms ease, transform 400ms ease;
+  transition: opacity var(--response-slow) var(--ease-enter),
+    transform var(--response-slow) var(--ease-enter);
 }
 
 .contact.in-view .contact-header {
@@ -522,9 +566,11 @@
   }
 
   .contact-history-popover {
+    --popover-x: -50%;
     left: 50%;
     right: auto;
-    transform: translateX(-50%);
+    /* Centred over the row, so it grows from the bottom centre instead. */
+    transform-origin: bottom center;
     width: min(280px, calc(100vw - 2.5rem));
   }
 }

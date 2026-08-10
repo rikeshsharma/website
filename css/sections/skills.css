@@ -63,6 +63,32 @@
   animation-play-state: paused;
 }
 
+/*
+  Once js/components/skills-marquee.js takes over, the row is something you
+  can grab — so the keyframe animation has to go. A keyframe loop can't be
+  interrupted, can't take the velocity of a flick, and would fight the
+  transform the drag is writing every frame. The CSS animation stays as the
+  no-JS fallback; `.is-interactive` is only ever added once JS is driving.
+*/
+.marquee-track.is-interactive {
+  animation: none;
+}
+
+.marquee-row.is-draggable {
+  cursor: grab;
+  /* Vertical stays the browser's page scroll; horizontal is ours. */
+  touch-action: pan-y;
+  /* A drag across the labels must not turn into a text selection — and the
+     selection would start before the 10px threshold decides it's a drag, so
+     this can't wait for `.is-dragging`. */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.marquee-row.is-dragging {
+  cursor: grabbing;
+}
+
 .marquee-group {
   display: flex;
   align-items: center;
@@ -109,7 +135,10 @@
   font-size: 0.9rem;
   font-weight: 600;
   opacity: 0.7;
-  transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: opacity var(--response) var(--ease-enter),
+    transform var(--response) var(--ease-enter),
+    box-shadow var(--response) var(--ease-enter),
+    border-color var(--response) var(--ease-enter);
 }
 
 .skill-chip--badge {
@@ -124,11 +153,11 @@
   fill: currentColor;
 }
 
-.marquee-track:hover .skill-chip {
+.marquee-row:not(.is-dragging) .marquee-track:hover .skill-chip {
   opacity: 0.35;
 }
 
-.marquee-track:hover .skill-chip:hover {
+.marquee-row:not(.is-dragging) .marquee-track:hover .skill-chip:hover {
   opacity: 1;
   transform: scale(1.08);
   background: var(--color-brand);

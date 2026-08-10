@@ -107,7 +107,10 @@
   border-radius: var(--radius-circle);
   border: 1px solid rgba(var(--color-footer-cream-rgb), 0.16);
   color: var(--color-footer-muted);
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: background-color var(--response-fast) var(--ease-exit),
+    color var(--response-fast) var(--ease-exit),
+    border-color var(--response-fast) var(--ease-exit),
+    transform var(--response-fast) var(--ease-exit);
 }
 
 .footer-social-link svg {
@@ -120,7 +123,17 @@
   background-color: var(--color-brand);
   border-color: var(--color-brand);
   color: var(--color-white);
-  transform: translateY(-2px);
+  transform: translateY(var(--motion-lift));
+  transition: background-color var(--response-fast) var(--ease-enter),
+    color var(--response-fast) var(--ease-enter),
+    border-color var(--response-fast) var(--ease-enter),
+    transform var(--response-fast) var(--ease-enter);
+}
+
+.footer-social-link.is-pressed,
+.footer-social-link.is-pressed:hover {
+  transform: translateY(0) scale(var(--press-scale));
+  transition: transform var(--response-instant) var(--ease-enter);
 }
 
 .footer-email {
@@ -170,7 +183,10 @@
   font-size: 0.85rem;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  transition: background-color var(--response-fast) var(--ease-exit),
+    border-color var(--response-fast) var(--ease-exit),
+    color var(--response-fast) var(--ease-exit),
+    transform var(--response-fast) var(--ease-exit);
 }
 
 .footer-to-top svg {
@@ -183,14 +199,25 @@
   background: var(--color-brand);
   border-color: var(--color-brand);
   color: var(--color-white);
-  transform: translateY(-2px);
+  transform: translateY(var(--motion-lift));
+  transition: background-color var(--response-fast) var(--ease-enter),
+    border-color var(--response-fast) var(--ease-enter),
+    color var(--response-fast) var(--ease-enter),
+    transform var(--response-fast) var(--ease-enter);
+}
+
+.footer-to-top.is-pressed,
+.footer-to-top.is-pressed:hover {
+  transform: translateY(0) scale(var(--press-scale));
+  transition: transform var(--response-instant) var(--ease-enter);
 }
 
 /* Scroll reveal (base hidden state + reduced-motion reset: css/components/reveal.css) */
 
 .footer-top,
 .footer-bottom {
-  transition: opacity 400ms ease, transform 400ms ease;
+  transition: opacity var(--response-slow) var(--ease-enter),
+    transform var(--response-slow) var(--ease-enter);
 }
 
 .site-footer.in-view .footer-top {
@@ -204,12 +231,9 @@
   transition-delay: 100ms;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .footer-social-link:hover,
-  .footer-to-top:hover {
-    transform: none;
-  }
-}
+/* `--motion-lift` and `--press-scale` already flatten under reduced motion
+   (css/base/motion.css); the color changes are kept, since they carry the
+   feedback and aren't the part that causes trouble. */
 
 /* Tablet */
 

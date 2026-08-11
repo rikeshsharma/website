@@ -22,7 +22,7 @@ toggle in the header for light.
 
 | File | Owns |
 | --- | --- |
-| `css/variables.css` | color, radius, and the hero-glow / toggle palettes |
+| `css/variables.css` | colour, radius, and the hero-glow / toggle palettes |
 | `css/base/motion.css` | easing curves, response times, movement amounts, translucent materials |
 | `css/base/typography.css` | system font stack, tracking and leading scales |
 

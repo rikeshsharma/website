@@ -135,8 +135,11 @@
   color: var(--color-heading);
 }
 
-.project-card--1 .project-card-title,
-.project-card--6 .project-card-title {
+/* The two feature cards in each group of six carry a larger title. Keyed to
+   the same nth-child positions css/sections/projects.css gives the feature
+   shapes, so the type follows the layout instead of naming fixed cards. */
+.project-card:nth-child(6n + 1) .project-card-title,
+.project-card:nth-child(6n + 2) .project-card-title {
   font-size: 1.55rem;
 }
 
@@ -204,8 +207,8 @@
     font-size: 1.25rem;
   }
 
-  .project-card--1 .project-card-title,
-  .project-card--6 .project-card-title {
+  .project-card:nth-child(6n + 1) .project-card-title,
+  .project-card:nth-child(6n + 2) .project-card-title {
     font-size: 1.35rem;
   }
 }

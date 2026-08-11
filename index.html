@@ -35,6 +35,7 @@
   <script defer src="js/components/hero-glow.js"></script>
   <script defer src="js/components/skills-marquee.js"></script>
   <script defer src="js/components/theme-toggle.js"></script>
+  <script defer src="js/components/theme-images.js"></script>
   <script defer src="js/components/project-cards.js"></script>
   <script defer src="js/components/contact-form.js"></script>
   <script defer src="js/sections/about.js"></script>
@@ -190,7 +191,10 @@
         <ol class="timeline">
           <li class="timeline-item">
             <div class="timeline-logo">
-              <img src="assets/image/Samsung_Orig_Wordmark_BLACK_RGB.png" alt="Samsung Electronics logo" class="timeline-logo-img samsung">
+              <img src="assets/image/Samsung_Orig_Wordmark_WHITE_RGB.png"
+                   data-src-light="assets/image/Samsung_Orig_Wordmark_BLACK_RGB.png"
+                   data-src-dark="assets/image/Samsung_Orig_Wordmark_WHITE_RGB.png"
+                   alt="Samsung Electronics logo" class="timeline-logo-img samsung">
             </div>
             <div class="timeline-content">
               <span class="timeline-year">2023 — Present</span>
@@ -230,7 +234,10 @@
           </li>
           <li class="timeline-item">
             <div class="timeline-logo">
-              <img src="assets/image/nerdnerdy_logo.png" alt="NerdNerdy Internship company logo" class="timeline-logo-img">
+              <img src="assets/image/nerdnerdy_logo_dark.png"
+                   data-src-light="assets/image/nerdnerdy_logo.png"
+                   data-src-dark="assets/image/nerdnerdy_logo_dark.png"
+                   alt="NerdNerdy Internship company logo" class="timeline-logo-img">
             </div>
             <div class="timeline-content">
               <span class="timeline-year">2022</span>
@@ -243,7 +250,10 @@
           </li>
           <li class="timeline-item">
             <div class="timeline-logo">
-              <img src="assets/image/redlogoR.png" alt="IIT Kanpur RedLogo" class="timeline-logo-img">
+              <img src="assets/image/redlogoR_dark.png"
+                   data-src-light="assets/image/redlogoR.png"
+                   data-src-dark="assets/image/redlogoR_dark.png"
+                   alt="IIT Kanpur RedLogo" class="timeline-logo-img">
             </div>
             <div class="timeline-content">
               <span class="timeline-year">2018 — 2023</span>
@@ -373,12 +383,22 @@
       <div class="projects-container">
         <h2 class="projects-title">Projects</h2>
         <p class="projects-subtitle">A selection of projects spanning systems programming, compilers, AI, web development, and computational engineering.</p>
+        <!--
+          Card order is the layout. css/sections/projects.css gives the 1st and
+          2nd card of every group of six the two feature shapes (wide, then
+          full-height down the right edge) and auto-places the rest, so moving
+          an article moves its tile. Adding a project is a markup-only change:
+          no class, no `--i`, no grid area.
+        -->
         <div class="projects-grid">
 
-          <article class="project-card project-card--1" style="--i: 0;" tabindex="0">
+          <article class="project-card" tabindex="0">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
-                <img src="assets/image/campus-entry-exit.png" alt="campus automated entry exit system icon">
+                <img src="assets/image/campus-entry-exit_dark.png"
+                     data-src-light="assets/image/campus-entry-exit.png"
+                     data-src-dark="assets/image/campus-entry-exit_dark.png"
+                     alt="campus automated entry exit system icon">
               </div>
             </div>
             <div class="project-card-body">
@@ -390,10 +410,31 @@
             </div>
           </article>
 
-          <article class="project-card project-card--2" style="--i: 1;" tabindex="0">
+          <article class="project-card" tabindex="0">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
-                <img src="assets/image/java-compiler.png" alt="java compiler project icon">
+                <img src="assets/image/cfd-simulation_dark.png"
+                     data-src-light="assets/image/cfd-simulation.png"
+                     data-src-dark="assets/image/cfd-simulation_dark.png"
+                     alt=" cfd simulation project icon">
+              </div>
+            </div>
+            <div class="project-card-body">
+              <span class="project-badge">Course Project</span>
+              <h3 class="project-card-title">CFD Simulations</h3>
+              <div class="project-card-desc-wrap">
+                <p class="project-card-desc">Collection of computational fluid dynamics assignments completed at IIT Kanpur covering numerical simulation techniques.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" tabindex="0">
+            <div class="project-card-image">
+              <div class="project-card-placeholder" aria-hidden="true">
+                <img src="assets/image/java-compiler_dark.png"
+                     data-src-light="assets/image/java-compiler.png"
+                     data-src-dark="assets/image/java-compiler_dark.png"
+                     alt="java compiler project icon">
               </div>
             </div>
             <div class="project-card-body">
@@ -405,10 +446,13 @@
             </div>
           </article>
 
-          <article class="project-card project-card--3" style="--i: 2;" tabindex="0">
+          <article class="project-card" tabindex="0">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
-                <img src="assets/image/self-driving-car.png" alt="self driving car icon">
+                <img src="assets/image/self-driving-car_dark.png"
+                     data-src-light="assets/image/self-driving-car.png"
+                     data-src-dark="assets/image/self-driving-car_dark.png"
+                     alt="self driving car icon">
               </div>
             </div>
             <div class="project-card-body">
@@ -420,10 +464,13 @@
             </div>
           </article>
 
-          <article class="project-card project-card--4" style="--i: 3;" tabindex="0">
+          <article class="project-card" tabindex="0">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
-                <img src="assets/image/pdf-images.png" alt="pdf to images icon">
+                <img src="assets/image/pdf-images_dark.png"
+                     data-src-light="assets/image/pdf-images.png"
+                     data-src-dark="assets/image/pdf-images_dark.png"
+                     alt="pdf to images icon">
               </div>
             </div>
             <div class="project-card-body">
@@ -435,10 +482,13 @@
             </div>
           </article>
 
-          <article class="project-card project-card--5" style="--i: 4;" tabindex="0">
+          <article class="project-card" tabindex="0">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
-                <img src="assets/image/sudoku.png" alt="sudoku icon">
+                <img src="assets/image/sudoku_dark.png"
+                     data-src-light="assets/image/sudoku.png"
+                     data-src-dark="assets/image/sudoku_dark.png"
+                     alt="sudoku icon">
               </div>
             </div>
             <div class="project-card-body">
@@ -446,21 +496,6 @@
               <h3 class="project-card-title">K-Pair Sudoku Generator &amp; SAT Solver</h3>
               <div class="project-card-desc-wrap">
                 <p class="project-card-desc">Implemented a K×K Sudoku pair generator and SAT solver in Python using pySAT and backtracking-based search.</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card project-card--6" style="--i: 5;" tabindex="0">
-            <div class="project-card-image">
-              <div class="project-card-placeholder" aria-hidden="true">
-                <img src="assets/image/cfd-simulation.png" alt=" cfd simulation project icon">
-              </div>
-            </div>
-            <div class="project-card-body">
-              <span class="project-badge">Course Project</span>
-              <h3 class="project-card-title">CFD Simulations</h3>
-              <div class="project-card-desc-wrap">
-                <p class="project-card-desc">Collection of computational fluid dynamics assignments completed at IIT Kanpur covering numerical simulation techniques.</p>
               </div>
             </div>
           </article>

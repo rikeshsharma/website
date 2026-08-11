@@ -46,6 +46,16 @@ body.dark-mode {
   --color-surface-hover: #2A2523;
   --color-project-image-bg: #1A1614;
 
+  /*
+    The timeline disc drops to the page color here, which looks like the wrong
+    token until you open the artwork: the *_dark company logos are opaque PNGs
+    with a near-black ground baked in (~#151412), not marks on transparency.
+    On a --color-surface disc that ground reads as a dark square with corners
+    poking out inside the circle. At --color-page it disappears, and the disc
+    is defined by its terracotta border instead of by a fill.
+  */
+  --color-timeline-logo-bg: var(--color-page);
+
   /* Warm off-whites, stepped down in weight rather than jumping to grey. */
   --color-text-strong: #FFFBF7;
   --color-heading: #F7F1EC;
@@ -109,15 +119,6 @@ body.dark-mode {
 */
 body.dark-mode .logo-inner {
   fill: var(--color-page);
-}
-
-/*
-  Company logos are dark artwork on transparency, so this disc has to stay
-  light in both themes — inverting it would make the Samsung wordmark and the
-  IIT mark disappear entirely.
-*/
-body.dark-mode .timeline-logo {
-  background: var(--color-white);
 }
 
 /* The one part of the toggle that isn't a colour: which end the thumb parks

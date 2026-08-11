@@ -30,25 +30,56 @@
   color: var(--color-text-muted);
 }
 
-/* Bento grid */
+/*
+  Bento grid.
+
+  This was a fixed `grid-template-areas` map with six named cells and a
+  `.project-card--N` class pinning each card to one of them. That map had no
+  free cells at any breakpoint, so a seventh project didn't extend the
+  pattern — it fell into an implicit row sized by content, where
+  `.project-card-image` (a flex child whose only content is absolutely
+  positioned) collapses to zero height and the card renders as a squat
+  text-only orphan in column one.
+
+  So the layout is a *repeating pattern* instead of a map: two feature shapes
+  per group of six, and auto-placement flows everything else around them.
+  Card seven starts the group over. Nothing is indexed to a specific project,
+  and adding one is a markup-only change.
+*/
 
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 0.82fr;
+  /* A hand-tuned staircase for the first group of six. Rows past it fall to
+     `grid-auto-rows` — the staircase is a composition for the top of the
+     section, not a rule the whole list should inherit. The explicit minimums
+     also matter structurally: they are what stops a card in a content-sized
+     row from collapsing. */
   grid-template-rows: minmax(340px, auto) minmax(300px, auto) minmax(240px, auto);
+  grid-auto-rows: minmax(300px, auto);
   gap: 24px;
-  grid-template-areas:
-    "m1  m1  mi1"
-    "m2  m3  mi1"
-    "mi2 mi3 mi1";
 }
 
-.project-card--1 { grid-area: m1; }
-.project-card--2 { grid-area: m2; }
-.project-card--3 { grid-area: m3; }
-.project-card--4 { grid-area: mi2; }
-.project-card--5 { grid-area: mi3; }
-.project-card--6 { grid-area: mi1; }
+/*
+  The two feature shapes. Everything else is 1×1 and needs no rule at all.
+  Placement stays sparse (no `dense`) on purpose: dense flow would pull a
+  later small card back into an earlier gap, so the visual order would stop
+  matching DOM and tab order.
+*/
+.project-card:nth-child(6n + 1) {
+  grid-column: span 2;
+}
+
+/*
+  The full-height card down the right edge only works if four more cards
+  follow to fill the two columns beside it — otherwise it stands next to two
+  empty rows. `:nth-last-child(-n + 4)` means "one of the last four", so this
+  reads as: span three rows unless you're near the end of the list, in which
+  case stay 1×1 and let the group close cleanly.
+*/
+.project-card:nth-child(6n + 2):not(:nth-last-child(-n + 4)) {
+  grid-row: span 3;
+}
 
 /* Tablet */
 
@@ -56,11 +87,19 @@
   .projects-grid {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(4, minmax(260px, auto));
-    grid-template-areas:
-      "m1  m1"
-      "m2  m3"
-      "mi1 mi1"
-      "mi2 mi3";
+    grid-auto-rows: minmax(260px, auto);
+  }
+
+  /*
+    Two columns can't hold a three-row card beside anything, so the tall
+    feature flattens into a second wide band and the group tiles as four rows.
+    Both feature rules are restated together — the tall one has to be undone,
+    not just left to the narrower grid.
+  */
+  .projects-grid .project-card:nth-child(6n + 1),
+  .projects-grid .project-card:nth-child(6n + 2) {
+    grid-column: span 2;
+    grid-row: auto;
   }
 }
 
@@ -82,13 +121,17 @@
   .projects-grid {
     grid-template-columns: 1fr;
     grid-template-rows: none;
-    grid-template-areas:
-      "m1"
-      "m2"
-      "m3"
-      "mi1"
-      "mi2"
-      "mi3";
+    grid-auto-rows: auto;
     gap: 18px;
+  }
+
+  /* One column: no features, every card the same shape. This has to match the
+     tablet block's specificity and sit after it, since both media queries
+     apply at this width. Row height comes from `.project-card`'s min-height
+     in css/components/project-card.css. */
+  .projects-grid .project-card:nth-child(6n + 1),
+  .projects-grid .project-card:nth-child(6n + 2) {
+    grid-column: auto;
+    grid-row: auto;
   }
 }

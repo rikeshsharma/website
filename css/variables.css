@@ -51,10 +51,9 @@
   --color-hairline-rgb: 0, 0, 0;
   --divider-alpha: 0.6;
 
-  /* Light-mode neutrals. --color-white survives as a literal because two
-     things genuinely stay white in both themes: the bright edge on
-     translucent chrome, and the disc behind the dark company logos.
-     --color-black-rgb is shadows only. */
+  /* Light-mode neutrals. --color-white survives as a literal because the
+     bright edge on translucent chrome genuinely stays white in both themes:
+     it represents light catching an edge. --color-black-rgb is shadows only. */
   --color-white: #fff;
   --color-white-rgb: 255, 255, 255;
   --color-black-rgb: 0, 0, 0;
@@ -68,6 +67,15 @@
   --color-border-strong: #c8c8c8;
   --color-surface-hover: #f0f0f0;
   --color-project-image-bg: #f4f3f1;
+
+  /*
+    The disc behind the timeline's company logos. Its own token rather than
+    plain --color-surface because the logo artwork is opaque PNG with a ground
+    baked into it, so the disc has to match that ground exactly or the image
+    reads as a square sitting on a circle. Dark mode re-points it; see the note
+    in css/themes/dark.css.
+  */
+  --color-timeline-logo-bg: var(--color-surface);
 
   /* Dark-mode values live in css/themes/dark.css, as overrides of the
      semantic tokens above rather than a parallel set of names. */

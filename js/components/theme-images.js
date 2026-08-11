@@ -1,10 +1,10 @@
 /*
   Per-theme image sources.
 
-  Some artwork can't be themed with tokens — the project card images and the
-  timeline's company logos are opaque PNGs with their own baked-in background,
-  so each one ships a light and a dark file. An <img> carries both paths as
-  data attributes and this swaps `src` when the theme flips:
+  Some images can't be themed with tokens — a photograph or an opaque PNG
+  carries its own background, so there is nothing for a token to re-point.
+  Those ship as a pair of files instead, and an <img> carries both paths as
+  data attributes so this can swap `src` when the theme flips:
 
     <img src="…_dark.png"
          data-src-light="…png"

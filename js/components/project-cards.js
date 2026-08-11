@@ -16,7 +16,15 @@
     */
     card.style.setProperty("--i", index);
 
-    card.addEventListener("click", () => {
+    card.addEventListener("click", (event) => {
+      /*
+        On pointer devices the title's repo link is stretched across the whole
+        card, so nearly every click reaches this handler from the anchor.
+        Following the link and toggling the panel are different intents — the
+        link wins, and the card is left exactly as the user found it.
+      */
+      if (event.target.closest("a[href]")) return;
+
       const wasOpen = card.classList.contains("is-open");
       projectsGrid
         .querySelectorAll(".project-card.is-open")

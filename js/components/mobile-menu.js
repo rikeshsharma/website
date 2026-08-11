@@ -1,10 +1,6 @@
 /*
   Mobile navigation.
 
-  Opening and closing is a plain CSS transition — it isn't gesture-driven, so
-  a spring would buy nothing. The swipe-to-dismiss below is, and it follows
-  the fluid-interface rules (see SKILL.md §2, §3, §5, §6, §9, §10):
-
     - the panel tracks the finger 1:1 from wherever it was grabbed
     - dragging the wrong way rubber-bands instead of hitting a wall
     - release hands the finger's velocity straight to a spring

@@ -1,6 +1,4 @@
 /*
-  Instant press feedback (see SKILL.md §1 Response, §10 Gesture details).
-
   The moment lag appears, the feeling of directness falls off a cliff. So the
   highlight goes on at pointer-*down*, never on click — waiting for touch-up
   to acknowledge a press feels dead, and `click` fires after the browser has
@@ -45,7 +43,13 @@
       if (!candidate || candidate.disabled) return;
 
       release();
-      target = candidate;
+      /*
+        A project card's repo link is stretched over the entire tile, so a
+        press anywhere on the card lands on the anchor. The thing the user
+        perceives themselves as pushing is the tile, so the feedback goes
+        there — an anchor with no press styling would otherwise swallow it.
+      */
+      target = candidate.closest(".project-card") || candidate;
       pointerId = event.pointerId;
       originX = event.clientX;
       originY = event.clientY;

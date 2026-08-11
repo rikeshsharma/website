@@ -218,6 +218,14 @@
                   </p>
                 </div>
                 <div class="subsection">
+                  <h4 class="subsection-title">On Device Translation</h4>
+                  <p class="subsection-desc">
+                    I contributed to Samsung Browser by working on the On-Device Translation feature, focusing on integrating and enhancing
+                    translation capabilities directly within the browser to provide a faster, more private, and seamless multilingual
+                    browsing experience.
+                  </p>
+                </div>
+                <div class="subsection">
                   <h4 class="subsection-title">Downloads</h4>
                   <p class="subsection-desc">
                     I contributed to Samsung Browser by working on download management and insecure
@@ -385,17 +393,52 @@
     <section class="projects" id="project">
       <div class="projects-container">
         <h2 class="projects-title">Projects</h2>
-        <p class="projects-subtitle">A selection of projects spanning systems programming, compilers, AI, web development, and computational engineering.</p>
+        <p class="projects-subtitle">A selection of projects spanning systems programming, compilers, AI, web development, and
+          computational engineering.</p>
         <!--
           Card order is the layout. css/sections/projects.css gives the 1st and
           2nd card of every group of six the two feature shapes (wide, then
           full-height down the right edge) and auto-places the rest, so moving
           an article moves its tile. Adding a project is a markup-only change:
           no class, no `--i`, no grid area.
+
+          The title anchor is the card's only tab stop and the thing that
+          carries the repo link — the article itself is not focusable, because
+          two stops per card (one to expand, one to follow) is a tax on
+          keyboard users for no gain: focusing the link already expands the
+          card through `:focus-within`.
         -->
         <div class="projects-grid">
 
-          <article class="project-card" tabindex="0">
+          <article class="project-card">
+            <div class="project-card-image">
+              <div class="project-card-placeholder" aria-hidden="true">
+                <img src="assets/image/traceback_dark.png"
+                     data-src-light="assets/image/traceback.png"
+                     data-src-dark="assets/image/traceback_dark.png"
+                     alt="Traceback icon">
+              </div>
+            </div>
+            <div class="project-card-body">
+              <span class="project-badge">Open-Source Project</span>
+              <h3 class="project-card-title">
+                <a class="project-card-link" href="https://github.com/rikeshsharma/traceback"
+                   target="_blank" rel="noopener noreferrer" aria-label="Traceback on GitHub">
+                  Traceback
+                  <svg class="project-card-link-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><use href="#icon-github"></use></svg>
+                </a>
+              </h3>
+              <div class="project-card-desc-wrap">
+                <p class="project-card-desc">Traceback is a single-user desktop app for Android/Chromium engineers. You paste a
+                  tombstone or a logcat FATAL block containing a native backtrace with hex pc offsets; the app parses every frame,
+                  resolves each offset against locally indexed symbol files, and shows the hex offset and the resolved symbol side by
+                  side. <br>
+                Python3 + PyGObject + GTK4</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
                 <img src="assets/image/campus-entry-exit_dark.png"
@@ -406,32 +449,21 @@
             </div>
             <div class="project-card-body">
               <span class="project-badge">Course Project</span>
-              <h3 class="project-card-title">Campus Automated Entry Exit System</h3>
+              <h3 class="project-card-title">
+                <a class="project-card-link" href="https://github.com/rikeshsharma/smartex-cs253"
+                   target="_blank" rel="noopener noreferrer" aria-label="Campus Automated Entry Exit System on GitHub">
+                  Campus Automated Entry Exit System
+                  <svg class="project-card-link-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><use href="#icon-github"></use></svg>
+                </a>
+              </h3>
               <div class="project-card-desc-wrap">
-                <p class="project-card-desc">Automated campus entry and exit management system with barcode-based student authentication built using HTML, CSS, JavaScript, and AWS backend services.</p>
+                <p class="project-card-desc">Automated campus entry and exit management system with barcode-based student authentication
+                  built using HTML, CSS, JavaScript, and AWS backend services.</p>
               </div>
             </div>
           </article>
 
-          <article class="project-card" tabindex="0">
-            <div class="project-card-image">
-              <div class="project-card-placeholder" aria-hidden="true">
-                <img src="assets/image/cfd-simulation_dark.png"
-                     data-src-light="assets/image/cfd-simulation.png"
-                     data-src-dark="assets/image/cfd-simulation_dark.png"
-                     alt=" cfd simulation project icon">
-              </div>
-            </div>
-            <div class="project-card-body">
-              <span class="project-badge">Course Project</span>
-              <h3 class="project-card-title">CFD Simulations</h3>
-              <div class="project-card-desc-wrap">
-                <p class="project-card-desc">Collection of computational fluid dynamics assignments completed at IIT Kanpur covering numerical simulation techniques.</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card" tabindex="0">
+          <article class="project-card">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
                 <img src="assets/image/java-compiler_dark.png"
@@ -442,14 +474,22 @@
             </div>
             <div class="project-card-body">
               <span class="project-badge">Course Project</span>
-              <h3 class="project-card-title">Java Compiler</h3>
+              <h3 class="project-card-title">
+                
+                <a class="project-card-link" href="https://github.com/rishk19/CS335_Project"
+                   target="_blank" rel="noopener noreferrer" aria-label="Java Compiler on GitHub">
+                  Java Compiler
+                  <svg class="project-card-link-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><use href="#icon-github"></use></svg>
+                </a>
+              </h3>
               <div class="project-card-desc-wrap">
-                <p class="project-card-desc">Implemented a Java compiler in C++ featuring lexer, parser, AST construction, semantic analysis, IR generation, and x86 assembly code generation.</p>
+                <p class="project-card-desc">Implemented a Java compiler in C++ featuring lexer, parser, AST construction, semantic
+                  analysis, IR generation, and x86 assembly code generation.</p>
               </div>
             </div>
           </article>
 
-          <article class="project-card" tabindex="0">
+          <article class="project-card">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
                 <img src="assets/image/self-driving-car_dark.png"
@@ -460,14 +500,21 @@
             </div>
             <div class="project-card-body">
               <span class="project-badge">Self Project</span>
-              <h3 class="project-card-title">Self Driving Car using JavaScript</h3>
+              <h3 class="project-card-title">
+                <a class="project-card-link" href="https://github.com/rikeshsharma/self-driving-car.github.io"
+                   target="_blank" rel="noopener noreferrer" aria-label="Self Driving Car using JavaScript on GitHub">
+                  Self Driving Car using JavaScript
+                  <svg class="project-card-link-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><use href="#icon-github"></use></svg>
+                </a>
+              </h3>
               <div class="project-card-desc-wrap">
-                <p class="project-card-desc">Built a browser-based self-driving car simulation with neural network learning, sensors, traffic simulation, and HTML Canvas rendering.</p>
+                <p class="project-card-desc">Built a browser-based self-driving car simulation with neural network learning, sensors,
+                  traffic simulation, and HTML Canvas rendering.</p>
               </div>
             </div>
           </article>
 
-          <article class="project-card" tabindex="0">
+          <article class="project-card">
             <div class="project-card-image">
               <div class="project-card-placeholder" aria-hidden="true">
                 <img src="assets/image/pdf-images_dark.png"
@@ -478,27 +525,16 @@
             </div>
             <div class="project-card-body">
               <span class="project-badge">Self Project</span>
-              <h3 class="project-card-title">PDF to Images</h3>
+              <h3 class="project-card-title">
+                <a class="project-card-link" href="https://github.com/rikeshsharma/pdf-to-images"
+                   target="_blank" rel="noopener noreferrer" aria-label="PDF to Images on GitHub">
+                  PDF to Images
+                  <svg class="project-card-link-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><use href="#icon-github"></use></svg>
+                </a>
+              </h3>
               <div class="project-card-desc-wrap">
-                <p class="project-card-desc">Node.js and Express application that converts uploaded PDF documents into JPG images using ImageMagick.</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card" tabindex="0">
-            <div class="project-card-image">
-              <div class="project-card-placeholder" aria-hidden="true">
-                <img src="assets/image/sudoku_dark.png"
-                     data-src-light="assets/image/sudoku.png"
-                     data-src-dark="assets/image/sudoku_dark.png"
-                     alt="sudoku icon">
-              </div>
-            </div>
-            <div class="project-card-body">
-              <span class="project-badge">Course Project</span>
-              <h3 class="project-card-title">K-Pair Sudoku Generator &amp; SAT Solver</h3>
-              <div class="project-card-desc-wrap">
-                <p class="project-card-desc">Implemented a K×K Sudoku pair generator and SAT solver in Python using pySAT and backtracking-based search.</p>
+                <p class="project-card-desc">Node.js and Express application that converts uploaded PDF documents into JPG images using
+                  ImageMagick.</p>
               </div>
             </div>
           </article>
@@ -515,7 +551,9 @@
         </div>
         <div class="about-grid">
           <div class="about-summary">
-            <p>I'm a software engineer specializing in Chromium-based browser development. My work includes building browser features, integrating AI capabilities, and contributing to core browser components such as navigation, loading, and privacy. I enjoy working with large-scale C++ codebases and solving complex systems-level engineering problems.</p>
+            <p>I'm a software engineer specializing in Chromium-based browser development. My work includes building browser
+              features, integrating AI capabilities, and contributing to core browser components such as navigation, loading, and
+              privacy. I enjoy working with large-scale C++ codebases and solving complex systems-level engineering problems.</p>
           </div>
           <dl class="about-facts">
             <div class="about-fact">
@@ -524,15 +562,15 @@
             </div>
             <div class="about-fact">
               <dt>Focus</dt>
-              <dd>Navigation &middot; Loading &middot; Privacy &middot; AI</dd>
+              <dd>Navigation &middot; Loading &middot; On Device Translation &middot; Extension &middot; Downloads &middot; AI</dd>
             </div>
             <div class="about-fact">
               <dt>Primary Language</dt>
-              <dd>C++</dd>
+              <dd>C++ &middot; Python </dd>
             </div>
             <div class="about-fact">
               <dt>Interests</dt>
-              <dd>Systems Programming &middot; Browser Architecture &middot; AI Integration &middot; Performance Engineering</dd>
+              <dd>Systems Programming &middot; Browser Architecture &middot; Developer Tools &middot; AI Integration </dd>
             </div>
           </dl>
         </div>

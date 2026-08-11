@@ -1,6 +1,4 @@
 /*
-  Physics helpers for gesture-driven motion (see SKILL.md §3–§6, §9).
-
   CSS transitions are fine for anything the user can only *look* at. They are
   wrong for anything the user can *grab*, because a transition can't be
   interrupted and redirected mid-flight — grab a closing panel and it insists

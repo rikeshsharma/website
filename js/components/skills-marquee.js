@@ -1,6 +1,4 @@
 /*
-  Draggable skills marquee (see SKILL.md §2, §3, §5, §6, §10).
-
   The rows used to be a CSS `@keyframes` loop that paused on hover. That looks
   right and feels wrong the moment you reach for it: a keyframe animation
   can't be grabbed, can't inherit the velocity of a flick, and starts and

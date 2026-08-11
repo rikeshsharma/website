@@ -1,6 +1,4 @@
 /*
-  Pointer tracking for the hero glow (see SKILL.md §3, §4, §11).
-
   The naive version writes the pointer's coordinates straight onto the orbs.
   That produces motion that is technically correct and feels wrong: the light
   stops dead the instant the mouse does, which reads as a cursor decoration

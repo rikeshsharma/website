@@ -244,7 +244,7 @@
 }
 
 /*
-  The popover grows out of the pill that opened it (see SKILL.md §7). Scaling
+  The popover grows out of the pill that opened it. Scaling
   from its own centre would leave the panel floating with no visible cause;
   anchoring `transform-origin` to the trigger makes the relationship between
   button and content obvious without a word of explanation.

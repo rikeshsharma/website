@@ -20,11 +20,6 @@ toggle in the header for light.
 
 ## Design system
 
-The interaction and visual design follow [`SKILL.md`](SKILL.md) — Apple's
-fluid-interface and typography principles, translated to the web. That file
-is the *why*; the token files below are the *what*. Reach for a token rather
-than inventing a value.
-
 | File | Owns |
 | --- | --- |
 | `css/variables.css` | color, radius, and the hero-glow / toggle palettes |
@@ -53,8 +48,6 @@ Three ideas run through the whole codebase:
 ```
 /
 ├── index.html
-├── SKILL.md              the design principles the UI is built against
-├── CLAUDE.md             working notes for AI agents on this repo
 ├── assets/
 │   ├── brand/            logo, favicon, brand-kit source files
 │   └── image/            profile photo, company logos, project thumbnails

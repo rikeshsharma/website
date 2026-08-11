@@ -1,6 +1,4 @@
 /*
-  Header material state + wayfinding (see SKILL.md §12, §16).
-
   Two small jobs, both about answering questions the user hasn't had to ask:
 
   1. The floating nav only deepens its shadow once content is actually passing

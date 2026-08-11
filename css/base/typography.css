@@ -1,6 +1,4 @@
 /*
-  Type foundations (see SKILL.md §15 — optical sizing, tracking, leading).
-
   The rule that drives this file: tracking and leading are *size-specific*.
   A single `letter-spacing` value is wrong somewhere — large text reads too
   loose and needs negative tracking, small text needs a touch of positive

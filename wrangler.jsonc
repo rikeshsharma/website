@@ -1,8 +1,8 @@
 {
-  "$schema": "https://developers.cloudflare.com/workers/wrangler/config-schema.json",
-  "name": "inpixelated",
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "website",
   "compatibility_date": "2026-08-12",
   "assets": {
-    "directory": "./public"
+    "directory": "."
   }
-}
+}git
